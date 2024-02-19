@@ -8,20 +8,20 @@ number:
 date:
 consensus: true
 v: 3
-area: WIT
-workgroup: HTTPBIS
+area: "Web and Internet Transport"
+workgroup: "HTTP"
 keyword:
  - IPv6 deployment
  - URI
  - URL
  - mDNS
 venue:
-  group: HTTPBIS
-  type: Working Group
-  mail: ietf-http-wg@w3.org
-  arch: https://lists.w3.org/Archives/Public/ietf-http-wg/
-  github: DavidSchinazi/draft-schinazi-httpbis-link-local-uri-bcp
-  latest: https://davidschinazi.github.io/draft-schinazi-httpbis-link-local-uri-bcp/draft-schinazi-httpbis-link-local-uri-bcp.html
+  group: "HTTP"
+  type: "Working Group"
+  mail: "ietf-http-wg@w3.org"
+  arch: "https://lists.w3.org/Archives/Public/ietf-http-wg/"
+  github: "DavidSchinazi/draft-schinazi-httpbis-link-local-uri-bcp"
+  latest: "https://DavidSchinazi.github.io/draft-schinazi-httpbis-link-local-uri-bcp/draft-schinazi-httpbis-link-local-uri-bcp.html"
 
 author:
  -
