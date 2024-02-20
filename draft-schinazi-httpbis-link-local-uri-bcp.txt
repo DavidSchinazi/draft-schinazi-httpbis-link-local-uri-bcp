@@ -322,7 +322,7 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ruby-url-
               problem-01>.
 
-   [URL-LS]   "URL-LS", WHATWG Living Standard, n.d.,
+   [URL-LS]   "URL-LS", WHATWG Living Standard,
               <https://url.spec.whatwg.org/>.
 
    [URL-ZONE-TRACKER1]
