@@ -42,6 +42,7 @@ informative:
     title: "URL-LS"
     seriesinfo:
       WHATWG: Living Standard
+    date: false
     target: "https://url.spec.whatwg.org/"
   URL-ZONE-TRACKER1:
     title: "Support IPv6 link-local addresses?"
