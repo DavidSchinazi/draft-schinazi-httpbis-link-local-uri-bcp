@@ -81,11 +81,11 @@ is often desirable in such scenarios, and can be accomplished using link-local
 addresses. This feature was added in IPv6 {{?RFC4007}} and retroactively
 backported to IPv4 {{?RFC3927}}. However, these addresses have limitations:
 
-* In IPv4, a given interface on a given host can generally only have one
-  address. Therefore, most implementations will disable IPv4 link-local
-  addresses any time globally routeable addresses are available. Additionally,
-  these addresses are generated randomly with fewer than 16 bits of entropy,
-  making conflicts statistically likely.
+* In order to simplify implementations (and as recommended in {{RFC3927}}),
+  most implementations disable IPv4 link-local addresses any time globally
+  routeable addresses are available. This can lead to instability of link-local
+  addresses. Additionally, these addresses are generated randomly with fewer
+  than 16 bits of entropy, making conflicts statistically likely.
 
 * In IPv6, link-local addresses are generated randomly with 64 bits of entropy,
   making conflicts statistically unlikely. Additionally, in IPv6 the use of
@@ -93,9 +93,12 @@ backported to IPv4 {{?RFC3927}}. However, these addresses have limitations:
   addresses to remain even when globally routable addresses change. However,
   IPv6 introduced the concept of a scope zone ({{Section 5 of RFC4007}}) and
   requires that every host include a zone identifier when sending to any IPv6
-  link-local address. Unfortunately, IPv6 address support was added to URLs
-  {{?RFC2732}} prior to the creation of IPv6 scoped addresses, which
-  effectively prevented the use of link-local IPv6 addresses in URLs.
+  link-local address. (While in theory {{RFC4007}} defined a "default" zone,
+  that is not widely supported. Most operating systems still require the scope
+  identifier when making a socket operation on IPv6 link-local addresses.)
+  Unfortunately, IPv6 address support was added to URLs {{?RFC2732}} prior to
+  the creation of IPv6 scoped addresses, which effectively prevented the use of
+  link-local IPv6 addresses in URLs.
 
 This document obsoletes {{?RFC6874}}, a previous attempt at solving this
 problem that failed, as described in {{attempt-6874}}. This document provides
@@ -116,11 +119,11 @@ support for IPv6 addresses was added in 1999 (see {{RFC2732}}). The IETF
 published an updated URI specification in 2005 ({{?RFC3986}}).
 
 In 2004, a group of browser vendors created the WHATWG, an effort to evolve
-Web-related specifications outside of the W3C or IETF. The WHATWG initially
-forked the HTML specification from the W3C, and later also forked the URL
-specification from IETF by creating the WHATWG URL Living Standard
-({{URL-LS}}). From that point onwards, even though development of URIs and URLs
-continued at IETF, this work no longer had any impact on Web browsers.
+Web-related specifications outside of the W3C or IETF. The WHATWG eventually
+forked the URL specification from IETF by creating the WHATWG URL Living
+Standard ({{URL-LS}}). From that point onwards, even though development of URIs
+and URLs continued at IETF, this work generally didn't lead to corresponding
+implementation changes in Web browsers.
 
 Almost two decades later, the situation hasn't changed. The IETF still
 maintains URL/URI specifications that are authoritative in all contexts except
@@ -138,14 +141,14 @@ means of communication. Many of these devices function properly without
 centralized IP addressing infrastructure, so there was interest in
 communicating with them using IPv6 link-local addresses.
 
-Over the course of 2012 and 2013, this led to the publication of {{RFC6874}},
-an update to the IETF URL specification that defines how to represent IP zone
-identifiers in URLs. This didn't lead to any implementation changes in Web
-browsers. The main concern from browsers what that such a change would require
-modifying many different components of the browser, with the associated
-security risks and maintenance costs. All browsers independently came to the
-same conclusion that such a change was not worth the effort. Further examples
-of what made {{RFC6874}} complex to implement are listed in {{Section 2 of
+Over the course of 2012 and 2013, this led to the creation and publication of
+{{RFC6874}}, an update to the IETF URL specification that defines how to
+represent IP zone identifiers in URLs. This didn't lead to any implementation
+changes in Web browsers. The main concern from browsers what that such a change
+would require modifying many different components of the browser, with the
+associated security risks and maintenance costs. All browsers came to the
+conclusion that such a change was not worth the effort. Further examples of
+what made {{RFC6874}} complex to implement are listed in {{Section 2 of
 ?RFC6874BIS=I-D.ietf-6man-rfc6874bis-09}}. After browsers decided not to
 implement it, the WHAT URL Living Standard was updated to mark the zone
 identifier as "intentionally omitted" (see {{URL-ZONE-TRACKER1}}). The WHATWG
@@ -165,10 +168,10 @@ Later, another attempt was made to allow Web browsers to communicate via IPv6
 link-local addresses: {{?ZONE-UI=I-D.draft-carpenter-6man-zone-ui-01}}. In this
 attempt, the zone identifier is no longer encoded in the URI. Instead client
 applications are requested to offer UI to allow selecting the zone identifier.
-While that document does not mention the Web or browsers directly, the
-intention was to eventually leverage it to help convince browsers to implement
-support for IPv6 link-local addresses. Similarly, this proposal does not seem
-to be gaining support from browser vendors.
+While that document does not mention the Web or browsers directly, its
+publication could be used to help convince browsers to implement support for
+IPv6 link-local addresses. Similarly, this proposal does not seem to be gaining
+support from browser vendors.
 
 # Recommendations for Link-Local Connectivity {#recommendations}
 
@@ -218,4 +221,5 @@ This document has no IANA actions.
 Some of the historical context in this document came from prior research
 documented in {{?URL-HISTORY=I-D.ruby-url-problem}}. The author would like to
 thank {{{Brian E. Carpenter}}}, {{{Stuart Cheshire}}}, and {{{Bob Hinden}}} for
-their prior work in this space.
+their prior work in this space. Additionally, the author thanks {{{Eric
+Rescorla}}} for their review and comments.
