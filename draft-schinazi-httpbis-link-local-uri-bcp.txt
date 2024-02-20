@@ -4,16 +4,25 @@
 
 HTTP                                                         D. Schinazi
 Internet-Draft                                                Google LLC
-Intended status: Best Current Practice                  19 February 2024
-Expires: 22 August 2024
+Obsoletes: 6874 (if approved)                           20 February 2024
+Intended status: Best Current Practice                                  
+Expires: 23 August 2024
 
 
-   Best Practices for Link Local Connectivity in URI-based Protocols
+   Best Practices for Link-Local Connectivity in URI-Based Protocols
             draft-schinazi-httpbis-link-local-uri-bcp-latest
 
 Abstract
 
-   TODO Abstract
+   Link-local IP connectivity allows hosts on the same network to
+   communicate with each other without the need for centralized IP
+   addressing infrastructure.  The IP prefixes 169.254.0.0/16 and
+   fe80::/10 were reserved for this purpose.  However, both IP versions
+   have limitations that make link-local addresses unideal for usage
+   with URI-based protocols.  This document provides guidance for how
+   best to enable such link-local connectivity in such protocols.  This
+   document also obsoletes RFC 6874, a previous attempt at solving this
+   issue.
 
 About This Document
 
@@ -49,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 August 2024.
+   This Internet-Draft will expire on 23 August 2024.
 
 Copyright Notice
 
@@ -68,18 +77,56 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-   2.  Conventions and Definitions
-   3.  Security Considerations
-   4.  IANA Considerations
-   5.  Normative References
+     1.1.  Conventions and Definitions
+   2.  Background
+     2.1.  URIs, URLs, and A Tale of Two Specifications
+     2.2.  IPv6 Link-Local Addresses in URLs
+     2.3.  Further Attempts
+   3.  Recommendations for Link-Local Connectivity
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
    Acknowledgments
    Author's Address
 
 1.  Introduction
 
-   TODO Introduction
+   While the majority of IP networking uses globally routable addresses,
+   those rely on addressing infrastructure that isn't always available.
+   For example, two hosts connected via a direct peer-to-peer link may
+   not have access to an entity assigning IP addresses through DHCP or
+   IPv6 router advertisements.  Connectivity is often desirable in such
+   scenarios, and can be accomplished using link-local addresses.  This
+   feature was added in IPv6 [RFC4007] and retroactively backported to
+   IPv4 [RFC3927].  However, these addresses have limitations:
 
-2.  Conventions and Definitions
+   *  In IPv4, a given interface on a given host can generally only have
+      one address.  Therefore, most implementations will disable IPv4
+      link-local addresses any time globally routeable addresses are
+      available.  Additionally, these addresses are generated randomly
+      with fewer than 16 bits of entropy, making conflicts statistically
+      likely.
+
+   *  In IPv6, link-local addresses are generated randomly with 64 bits
+      of entropy, making conflicts statistically unlikely.
+      Additionally, in IPv6 the use of multiple addresses per interface
+      is encouraged.  This allows link-local addresses to remain even
+      when globally routable addresses change.  However, IPv6 introduced
+      the concept of a scope zone (Section 5 of [RFC4007]) and requires
+      that every host include a zone identifier when sending to any IPv6
+      link-local address.  Unfortunately, IPv6 address support was added
+      to URLs [RFC2732] prior to the creation of IPv6 scoped addresses,
+      which effectively prevented the use of link-local IPv6 addresses
+      in URLs.
+
+   This document obsoletes [RFC6874], a previous attempt at solving this
+   problem that failed, as described in Section 2.2.  This document
+   provides recommendations for another solution to this problem in
+   Section 3.
+
+1.1.  Conventions and Definitions
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -87,28 +134,217 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-3.  Security Considerations
+2.  Background
 
-   TODO Security
+2.1.  URIs, URLs, and A Tale of Two Specifications
 
-4.  IANA Considerations
+   URIs and URLs were created early in the development of the World-Wide
+   Web and were brought to the IETF in 1994 (see [RFC1630] and
+   [RFC1738]).  Over the years, the IETF maintained and evolved these
+   specifications.  In particular, support for IPv6 addresses was added
+   in 1999 (see [RFC2732]).  The IETF published an updated URI
+   specification in 2005 ([RFC3986]).
+
+   In 2004, a group of browser vendors created the WHATWG, an effort to
+   evolve Web-related specifications outside of the W3C or IETF.  The
+   WHATWG initially forked the HTML specification from the W3C, and
+   later also forked the URL specification from IETF by creating the
+   WHATWG URL Living Standard ([URL-LS]).  From that point onwards, even
+   though development of URIs and URLs continued at IETF, this work no
+   longer had any impact on Web browsers.
+
+   Almost two decades later, the situation hasn't changed.  The IETF
+   still maintains URL/URI specifications that are authoritative in all
+   contexts except the Web, while the WHATWG maintains a URL
+   specification that is authoritative for Web browsers.  Note that the
+   use of the word authoritative here is somewhat of a stretch: neither
+   of these standards bodies have any actual authority to enforce that
+   their specifications be followed, and instead rely on implementers
+   choosing to follow the specification.
+
+2.2.  IPv6 Link-Local Addresses in URLs
+
+   As the Web gained in popularity, and increasing number of networked
+   devices such as routers or printers started to incorporate Web
+   servers as their primary means of communication.  Many of these
+   devices function properly without centralized IP addressing
+   infrastructure, so there was interest in communicating with them
+   using IPv6 link-local addresses.
+
+   Over the course of 2012 and 2013, this led to the publication of
+   [RFC6874], an update to the IETF URL specification that defines how
+   to represent IP zone identifiers in URLs.  This didn't lead to any
+   implementation changes in Web browsers.  The main concern from
+   browsers what that such a change would require modifying many
+   different components of the browser, with the associated security
+   risks and maintenance costs.  All browsers independently came to the
+   same conclusion that such a change was not worth the effort.  Further
+   examples of what made [RFC6874] complex to implement are listed in
+   Section 2 of [RFC6874BIS].  After browsers decided not to implement
+   it, the WHAT URL Living Standard was updated to mark the zone
+   identifier as "intentionally omitted" (see [URL-ZONE-TRACKER1]).  The
+   WHATWG subsequently rejected a request to add zone identifiers to
+   their URL specification (see [URL-ZONE-TRACKER2]).
+
+2.3.  Further Attempts
+
+   After it was clear no browser was going to implement [RFC6874],
+   another attempt was made to modify the URI RFC: [RFC6874BIS].  While
+   this attempted to address some of the difficulties in implementing
+   [RFC6874], it did not address the fact that browsers were not willing
+   to start such a complex implementation effort given the small usage
+   it was expected to receive.  That document failed to achieve
+   consensus and was never published.
+
+   Later, another attempt was made to allow Web browsers to communicate
+   via IPv6 link-local addresses: [ZONE-UI].  In this attempt, the zone
+   identifier is no longer encoded in the URI.  Instead client
+   applications are requested to offer UI to allow selecting the zone
+   identifier.  While that document does not mention the Web or browsers
+   directly, the intention was to eventually leverage it to help
+   convince browsers to implement support for IPv6 link-local addresses.
+   Similarly, this proposal does not seem to be gaining support from
+   browser vendors.
+
+3.  Recommendations for Link-Local Connectivity
+
+   Instead of focusing on IPv6 link-local addresses, it is important to
+   remember that the goal is to enable link-local connectivity, not
+   necessarily to surface IPv6 link-local addresses to users.  The
+   deployment of IPv6 happened in part because it did not require users
+   be aware of IPv6 addresses, not remember them, not type them into
+   browser address bars.  It happened transparently to the user, thanks
+   to the DNS: once it was possible to query IPv6 addresses from the DNS
+   (see [RFC3596]), users could browse the web over IPv6 without having
+   to ever see an IPv6 address.
+
+   This logic also applies to local connectivity in the absence of
+   centralized IP addressing infrastructure, because DNS hostnames can
+   resolve to link-local addresses.  In the absence of centralized DNS
+   infrastructure, mDNS (see [RFC6762]) can be used to resolve link-
+   local addresses from instance names.
+
+   Devices that are reachable over IP link-local connectivity and that
+   host servers of URI-based protocols SHOULD create an mDNS local
+   instance name for themselves and SHOULD respond to mDNS queries for
+   that instance name.
+
+4.  Security Considerations
+
+   Many aspects of the Web security model rely on using a name as a root
+   of security.  This has the following consequences:
+
+   *  name unicity matters, as conflicts can lead the two devices
+      sharing a name to incorrectly share a security boundary.
+
+   *  HTTPS/WebPKI security relies on globally-registered names, and is
+      therefore not available for link-local connectivity.  Such link-
+      local communication is therefore inherently not authenticated.
+
+   Fundamentally, mDNS has similar security properties as the underlying
+   link-local address it resolves to.
+
+5.  IANA Considerations
 
    This document has no IANA actions.
 
-5.  Normative References
+6.  References
+
+6.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
+   [RFC6762]  Cheshire, S. and M. Krochmal, "Multicast DNS", RFC 6762,
+              DOI 10.17487/RFC6762, February 2013,
+              <https://www.rfc-editor.org/rfc/rfc6762>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
+6.2.  Informative References
+
+   [RFC1630]  Berners-Lee, T., "Universal Resource Identifiers in WWW: A
+              Unifying Syntax for the Expression of Names and Addresses
+              of Objects on the Network as used in the World-Wide Web",
+              RFC 1630, DOI 10.17487/RFC1630, June 1994,
+              <https://www.rfc-editor.org/rfc/rfc1630>.
+
+   [RFC1738]  Berners-Lee, T., Masinter, L., and M. McCahill, "Uniform
+              Resource Locators (URL)", RFC 1738, DOI 10.17487/RFC1738,
+              December 1994, <https://www.rfc-editor.org/rfc/rfc1738>.
+
+   [RFC2732]  Hinden, R., Carpenter, B., and L. Masinter, "Format for
+              Literal IPv6 Addresses in URL's", RFC 2732,
+              DOI 10.17487/RFC2732, December 1999,
+              <https://www.rfc-editor.org/rfc/rfc2732>.
+
+   [RFC3596]  Thomson, S., Huitema, C., Ksinant, V., and M. Souissi,
+              "DNS Extensions to Support IP Version 6", STD 88,
+              RFC 3596, DOI 10.17487/RFC3596, October 2003,
+              <https://www.rfc-editor.org/rfc/rfc3596>.
+
+   [RFC3927]  Cheshire, S., Aboba, B., and E. Guttman, "Dynamic
+              Configuration of IPv4 Link-Local Addresses", RFC 3927,
+              DOI 10.17487/RFC3927, May 2005,
+              <https://www.rfc-editor.org/rfc/rfc3927>.
+
+   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <https://www.rfc-editor.org/rfc/rfc3986>.
+
+   [RFC4007]  Deering, S., Haberman, B., Jinmei, T., Nordmark, E., and
+              B. Zill, "IPv6 Scoped Address Architecture", RFC 4007,
+              DOI 10.17487/RFC4007, March 2005,
+              <https://www.rfc-editor.org/rfc/rfc4007>.
+
+   [RFC6874]  Carpenter, B., Cheshire, S., and R. Hinden, "Representing
+              IPv6 Zone Identifiers in Address Literals and Uniform
+              Resource Identifiers", RFC 6874, DOI 10.17487/RFC6874,
+              February 2013, <https://www.rfc-editor.org/rfc/rfc6874>.
+
+   [RFC6874BIS]
+              Carpenter, B. E., Cheshire, S., and R. M. Hinden,
+              "Representing IPv6 Zone Identifiers in Address Literals
+              and Uniform Resource Identifiers", Work in Progress,
+              Internet-Draft, draft-ietf-6man-rfc6874bis-09, 2 July
+              2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              6man-rfc6874bis-09>.
+
+   [URL-HISTORY]
+              Ruby, S. and L. Masinter, "URL Problem Statement and
+              Directions", Work in Progress, Internet-Draft, draft-ruby-
+              url-problem-01, 11 January 2015,
+              <https://datatracker.ietf.org/doc/html/draft-ruby-url-
+              problem-01>.
+
+   [URL-LS]   "URL-LS", WHATWG Living Standard, n.d.,
+              <https://url.spec.whatwg.org/>.
+
+   [URL-ZONE-TRACKER1]
+              "Support IPv6 link-local addresses?",
+              <https://www.w3.org/Bugs/Public/show_bug.cgi?id=27234>.
+
+   [URL-ZONE-TRACKER2]
+              "Support IPv6 zone identifiers",
+              <https://github.com/whatwg/url/issues/392>.
+
+   [ZONE-UI]  Carpenter, B. E. and R. M. Hinden, "Entering IPv6 Zone
+              Identifiers in User Interfaces", Work in Progress,
+              Internet-Draft, draft-carpenter-6man-zone-ui-01, 17
+              February 2024, <https://datatracker.ietf.org/doc/html/
+              draft-carpenter-6man-zone-ui-01>.
+
 Acknowledgments
 
-   TODO acknowledge.
+   Some of the historical context in this document came from prior
+   research documented in [URL-HISTORY].  The author would like to thank
+   Brian E. Carpenter, Stuart Cheshire, and Bob Hinden for their prior
+   work in this space.
 
 Author's Address
 
