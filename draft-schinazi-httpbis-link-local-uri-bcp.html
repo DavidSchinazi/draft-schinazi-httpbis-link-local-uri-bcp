@@ -1209,11 +1209,11 @@ addresses. This feature was added in IPv6 <span>[<a href="#RFC4007" class="cite 
 backported to IPv4 <span>[<a href="#RFC3927" class="cite xref">RFC3927</a>]</span>. However, these addresses have limitations:<a href="#section-1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-1-2.1">
-          <p id="section-1-2.1.1">In IPv4, a given interface on a given host can generally only have one
-address. Therefore, most implementations will disable IPv4 link-local
-addresses any time globally routeable addresses are available. Additionally,
-these addresses are generated randomly with fewer than 16 bits of entropy,
-making conflicts statistically likely.<a href="#section-1-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-1-2.1.1">In order to simplify implementations (and as recommended in <span>[<a href="#RFC3927" class="cite xref">RFC3927</a>]</span>),
+most implementations disable IPv4 link-local addresses any time globally
+routeable addresses are available. This can lead to instability of link-local
+addresses. Additionally, these addresses are generated randomly with fewer
+than 16 bits of entropy, making conflicts statistically likely.<a href="#section-1-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-2.2">
           <p id="section-1-2.2.1">In IPv6, link-local addresses are generated randomly with 64 bits of entropy,
@@ -1222,9 +1222,12 @@ multiple addresses per interface is encouraged. This allows link-local
 addresses to remain even when globally routable addresses change. However,
 IPv6 introduced the concept of a scope zone (<span><a href="https://rfc-editor.org/rfc/rfc4007#section-5" class="relref">Section 5</a> of [<a href="#RFC4007" class="cite xref">RFC4007</a>]</span>) and
 requires that every host include a zone identifier when sending to any IPv6
-link-local address. Unfortunately, IPv6 address support was added to URLs
-<span>[<a href="#RFC2732" class="cite xref">RFC2732</a>]</span> prior to the creation of IPv6 scoped addresses, which
-effectively prevented the use of link-local IPv6 addresses in URLs.<a href="#section-1-2.2.1" class="pilcrow">¶</a></p>
+link-local address. (While in theory <span>[<a href="#RFC4007" class="cite xref">RFC4007</a>]</span> defined a "default" zone,
+that is not widely supported. Most operating systems still require the scope
+identifier when making a socket operation on IPv6 link-local addresses.)
+Unfortunately, IPv6 address support was added to URLs <span>[<a href="#RFC2732" class="cite xref">RFC2732</a>]</span> prior to
+the creation of IPv6 scoped addresses, which effectively prevented the use of
+link-local IPv6 addresses in URLs.<a href="#section-1-2.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-1-3">This document obsoletes <span>[<a href="#RFC6874" class="cite xref">RFC6874</a>]</span>, a previous attempt at solving this
@@ -1259,11 +1262,11 @@ years, the IETF maintained and evolved these specifications. In particular,
 support for IPv6 addresses was added in 1999 (see <span>[<a href="#RFC2732" class="cite xref">RFC2732</a>]</span>). The IETF
 published an updated URI specification in 2005 (<span>[<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>).<a href="#section-2.1-1" class="pilcrow">¶</a></p>
 <p id="section-2.1-2">In 2004, a group of browser vendors created the WHATWG, an effort to evolve
-Web-related specifications outside of the W3C or IETF. The WHATWG initially
-forked the HTML specification from the W3C, and later also forked the URL
-specification from IETF by creating the WHATWG URL Living Standard
-(<span>[<a href="#URL-LS" class="cite xref">URL-LS</a>]</span>). From that point onwards, even though development of URIs and URLs
-continued at IETF, this work no longer had any impact on Web browsers.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
+Web-related specifications outside of the W3C or IETF. The WHATWG eventually
+forked the URL specification from IETF by creating the WHATWG URL Living
+Standard (<span>[<a href="#URL-LS" class="cite xref">URL-LS</a>]</span>). From that point onwards, even though development of URIs
+and URLs continued at IETF, this work generally didn't lead to corresponding
+implementation changes in Web browsers.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
 <p id="section-2.1-3">Almost two decades later, the situation hasn't changed. The IETF still
 maintains URL/URI specifications that are authoritative in all contexts except
 the Web, while the WHATWG maintains a URL specification that is authoritative
@@ -1283,14 +1286,14 @@ such as routers or printers started to incorporate Web servers as their primary
 means of communication. Many of these devices function properly without
 centralized IP addressing infrastructure, so there was interest in
 communicating with them using IPv6 link-local addresses.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
-<p id="section-2.2-2">Over the course of 2012 and 2013, this led to the publication of <span>[<a href="#RFC6874" class="cite xref">RFC6874</a>]</span>,
-an update to the IETF URL specification that defines how to represent IP zone
-identifiers in URLs. This didn't lead to any implementation changes in Web
-browsers. The main concern from browsers what that such a change would require
-modifying many different components of the browser, with the associated
-security risks and maintenance costs. All browsers independently came to the
-same conclusion that such a change was not worth the effort. Further examples
-of what made <span>[<a href="#RFC6874" class="cite xref">RFC6874</a>]</span> complex to implement are listed in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6874bis-09#section-2" class="relref">Section 2</a> of [<a href="#RFC6874BIS" class="cite xref">RFC6874BIS</a>]</span>. After browsers decided not to
+<p id="section-2.2-2">Over the course of 2012 and 2013, this led to the creation and publication of
+<span>[<a href="#RFC6874" class="cite xref">RFC6874</a>]</span>, an update to the IETF URL specification that defines how to
+represent IP zone identifiers in URLs. This didn't lead to any implementation
+changes in Web browsers. The main concern from browsers what that such a change
+would require modifying many different components of the browser, with the
+associated security risks and maintenance costs. All browsers came to the
+conclusion that such a change was not worth the effort. Further examples of
+what made <span>[<a href="#RFC6874" class="cite xref">RFC6874</a>]</span> complex to implement are listed in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6874bis-09#section-2" class="relref">Section 2</a> of [<a href="#RFC6874BIS" class="cite xref">RFC6874BIS</a>]</span>. After browsers decided not to
 implement it, the WHAT URL Living Standard was updated to mark the zone
 identifier as "intentionally omitted" (see <span>[<a href="#URL-ZONE-TRACKER1" class="cite xref">URL-ZONE-TRACKER1</a>]</span>). The WHATWG
 subsequently rejected a request to add zone identifiers to their URL
@@ -1312,10 +1315,10 @@ document failed to achieve consensus and was never published.<a href="#section-2
 link-local addresses: <span>[<a href="#ZONE-UI" class="cite xref">ZONE-UI</a>]</span>. In this
 attempt, the zone identifier is no longer encoded in the URI. Instead client
 applications are requested to offer UI to allow selecting the zone identifier.
-While that document does not mention the Web or browsers directly, the
-intention was to eventually leverage it to help convince browsers to implement
-support for IPv6 link-local addresses. Similarly, this proposal does not seem
-to be gaining support from browser vendors.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
+While that document does not mention the Web or browsers directly, its
+publication could be used to help convince browsers to implement support for
+IPv6 link-local addresses. Similarly, this proposal does not seem to be gaining
+support from browser vendors.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1471,7 +1474,7 @@ link-local address it resolves to.<a href="#section-4-3" class="pilcrow">¶</a><
 <p id="appendix-A-1">Some of the historical context in this document came from prior research
 documented in <span>[<a href="#URL-HISTORY" class="cite xref">URL-HISTORY</a>]</span>. The author would like to
 thank <span class="contact-name">Brian E. Carpenter</span>, <span class="contact-name">Stuart Cheshire</span>, and <span class="contact-name">Bob Hinden</span> for
-their prior work in this space.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+their prior work in this space. Additionally, the author thanks <span class="contact-name">Eric Rescorla</span> for their review and comments.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
