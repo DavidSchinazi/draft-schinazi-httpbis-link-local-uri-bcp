@@ -44,6 +44,12 @@ informative:
       WHATWG: Living Standard
     date: false
     target: "https://url.spec.whatwg.org/"
+  CORS:
+    title: "CORS protocol"
+    seriesinfo:
+      WHATWG: Living Standard
+    date: false
+    target: "https://fetch.spec.whatwg.org/#http-cors-protocol"
   URL-ZONE-TRACKER1:
     title: "Support IPv6 link-local addresses?"
     author:
@@ -65,13 +71,18 @@ each other without the need for centralized IP addressing infrastructure. The
 IP prefixes 169.254.0.0/16 and fe80::/10 were reserved for this purpose.
 However, both IP versions have limitations that make link-local addresses
 unideal for usage with URI-based protocols. This document provides guidance for
-how best to enable such link-local connectivity in such protocols. This
-document also obsoletes RFC 6874, a previous attempt at solving this issue.
+how best to enable link-local connectivity in such protocols. This document
+also obsoletes RFC 6874, a previous attempt at solving this issue.
 
 
 --- middle
 
 # Introduction
+
+To simplify configuration of new hardware, manufacturers often print
+configuration URLs on labels to allow the user to reach the configuration page
+by copying the URL into their browser. This is often simplified further by
+encoding the URL in a QR code and asking the user to scan it with a smartphone.
 
 While the majority of IP networking uses globally routable addresses, those
 rely on addressing infrastructure that isn't always available. For example, two
@@ -79,36 +90,59 @@ hosts connected via a direct peer-to-peer link may not have access to an entity
 assigning IP addresses through DHCP or IPv6 router advertisements. Connectivity
 is often desirable in such scenarios, and can be accomplished using link-local
 addresses. This feature was added in IPv6 {{?RFC4007}} and retroactively
-backported to IPv4 {{?RFC3927}}. However, these addresses have limitations:
-
-* In order to simplify implementations (and as recommended in {{RFC3927}}),
-  most implementations disable IPv4 link-local addresses any time globally
-  routeable addresses are available. This can lead to instability of link-local
-  addresses. Additionally, these addresses are generated randomly with fewer
-  than 16 bits of entropy, making conflicts statistically likely.
-
-* In IPv6, link-local addresses are generated randomly with 64 bits of entropy,
-  making conflicts statistically unlikely. Additionally, in IPv6 the use of
-  multiple addresses per interface is encouraged. This allows link-local
-  addresses to remain even when globally routable addresses change. However,
-  IPv6 introduced the concept of a scope zone ({{Section 5 of RFC4007}}) and
-  requires that every host include a zone identifier when sending to any IPv6
-  link-local address. (While in theory {{RFC4007}} defined a "default" zone,
-  that is not widely supported. Most operating systems still require the scope
-  identifier when making a socket operation on IPv6 link-local addresses.)
-  Unfortunately, IPv6 address support was added to URLs {{?RFC2732}} prior to
-  the creation of IPv6 scoped addresses, which effectively prevented the use of
-  link-local IPv6 addresses in URLs.
+backported to IPv4 {{?RFC3927}}. However, these addresses have limitations that
+make them unsuitable for use in URLs, as described in {{limitations}}.
 
 This document obsoletes {{?RFC6874}}, a previous attempt at solving this
 problem that failed, as described in {{attempt-6874}}. This document provides
-recommendations for another solution to this problem in {{recommendations}}.
+recommendations that solve this problem in {{recommendations}}.
 
 ## Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
+# Limitations
+
+Since there is clear value in being able to configure new devices in the
+absence of IP addressing infrastructure, there is interest in supporting
+link-local connectivity via URLs. However, link-local addresses have
+limitations in this regard.
+
+## Limitations of Link-Local IPv4 Addresses
+
+In order to simplify implementations (and as recommended in {{RFC3927}}), most
+implementations disable IPv4 link-local addresses any time globally routeable
+addresses are available. This can lead to instability of link-local addresses.
+Additionally, these addresses are generated randomly with fewer than 16 bits of
+entropy, making conflicts statistically likely.
+
+Both of these limitations make it impossible for a device to print a
+configuration URL on its packaging that uses a static IPv4 link-local address.
+
+## Limitations of Link-Local IPv6 Addresses
+
+In IPv6, link-local addresses are generated randomly with 64 bits of entropy,
+making conflicts statistically unlikely. Additionally, in IPv6 the use of
+multiple addresses per interface is encouraged. This allows link-local
+addresses to remain even when globally routable addresses change.
+
+However, IPv6 introduced the concept of a scope zone ({{Section 5 of RFC4007}})
+and requires that every host include a zone identifier when sending to any IPv6
+link-local address. While {{RFC4007}} defined a "default" zone, that is not
+widely supported: most operating systems still require the scope identifier
+when making a socket operation on IPv6 link-local addresses. This means that
+IPv6 link-local addresses have to be accompanied by a zone identifier from the
+moment that the address enters the process.
+
+Unfortunately, IPv6 address support was added to URLs {{?RFC2732}} prior to the
+creation of IPv6 scoped addresses, leaving the URL format for IPv6 addresses
+incapable of representing zone identifiers. This effectively prevented the use
+of link-local IPv6 addresses in URLs.
+
 # Background
+
+Before diving into potential solutions to these limitations, readers will
+benefit from the following relevant historical context.
 
 ## URIs, URLs, and A Tale of Two Specifications
 
@@ -122,34 +156,34 @@ In 2004, a group of browser vendors created the WHATWG, an effort to evolve
 Web-related specifications outside of the W3C or IETF. The WHATWG eventually
 forked the URL specification from IETF by creating the WHATWG URL Living
 Standard ({{URL-LS}}). From that point onwards, even though development of URIs
-and URLs continued at IETF, this work generally didn't lead to corresponding
+and URLs continued at the IETF, this work often didn't lead to corresponding
 implementation changes in Web browsers.
 
 Almost two decades later, the situation hasn't changed. The IETF still
 maintains URL/URI specifications that are authoritative in all contexts except
 the Web, while the WHATWG maintains a URL specification that is authoritative
-for Web browsers. Note that the use of the word authoritative here is somewhat
-of a stretch: neither of these standards bodies have any actual authority to
-enforce that their specifications be followed, and instead rely on implementers
-choosing to follow the specification.
+for Web browsers. Note that the use of the word "authoritative" here is
+somewhat of a misnomer: neither of these standards bodies have any actual
+authority to enforce that their specifications be followed, and instead rely on
+implementers choosing to follow the specification.
 
 ## IPv6 Link-Local Addresses in URLs {#attempt-6874}
 
-As the Web gained in popularity, and increasing number of networked devices
-such as routers or printers started to incorporate Web servers as their primary
-means of communication. Many of these devices function properly without
+As the Web gained in popularity, an increasing number of networked devices such
+as routers or printers started to incorporate Web servers as their primary
+means of configuration. Many of these devices function properly without
 centralized IP addressing infrastructure, so there was interest in
 communicating with them using IPv6 link-local addresses.
 
 Over the course of 2012 and 2013, this led to the creation and publication of
 {{RFC6874}}, an update to the IETF URL specification that defines how to
-represent IP zone identifiers in URLs. This didn't lead to any implementation
-changes in Web browsers. The main concern from browsers what that such a change
+represent IP zone identifiers in URLs. The majority of Web browsers did not
+implement this change. The main concern from browsers what that such a change
 would require modifying many different components of the browser, with the
-associated security risks and maintenance costs. All browsers came to the
-conclusion that such a change was not worth the effort. Further examples of
+associated security risks and maintenance costs. Almost all browsers came to
+the conclusion that such a change was not worth the effort. Further examples of
 what made {{RFC6874}} complex to implement are listed in {{Section 2 of
-?RFC6874BIS=I-D.ietf-6man-rfc6874bis-09}}. After browsers decided not to
+?DRAFT-6874BIS=I-D.ietf-6man-rfc6874bis-09}}. After browsers decided not to
 implement it, the WHAT URL Living Standard was updated to mark the zone
 identifier as "intentionally omitted" (see {{URL-ZONE-TRACKER1}}). The WHATWG
 subsequently rejected a request to add zone identifiers to their URL
@@ -157,41 +191,107 @@ specification (see {{URL-ZONE-TRACKER2}}).
 
 ## Further Attempts
 
-After it was clear no browser was going to implement {{RFC6874}}, another
-attempt was made to modify the URI RFC: {{RFC6874BIS}}. While this attempted to
-address some of the difficulties in implementing {{RFC6874}}, it did not
-address the fact that browsers were not willing to start such a complex
+After it was clear that most browser were not going to implement {{RFC6874}},
+another attempt was made to modify the URI RFC: {{DRAFT-6874BIS}}. While this
+attempted to address some of the difficulties in implementing {{RFC6874}}, it
+did not address the fact that browsers were not willing to start such a complex
 implementation effort given the small usage it was expected to receive. That
-document failed to achieve consensus and was never published.
+document failed to achieve consensus and was not published.
 
 Later, another attempt was made to allow Web browsers to communicate via IPv6
-link-local addresses: {{?ZONE-UI=I-D.draft-carpenter-6man-zone-ui-01}}. In this
-attempt, the zone identifier is no longer encoded in the URI. Instead client
-applications are requested to offer UI to allow selecting the zone identifier.
-While that document does not mention the Web or browsers directly, its
-publication could be used to help convince browsers to implement support for
-IPv6 link-local addresses. Similarly, this proposal does not seem to be gaining
-support from browser vendors.
+link-local addresses: {{?DRAFT-ZONE-UI=I-D.draft-carpenter-6man-zone-ui-01}}.
+In this attempt, the zone identifier is no longer encoded in the URI. Instead,
+client applications are requested to offer UI to allow selecting the zone
+identifier. While that document does not mention the Web or browsers directly,
+its publication could be used to help convince browsers to implement support
+for IPv6 link-local addresses. Similarly, this proposal does not seem to be
+gaining support from browser vendors.
+
+# Handling IPv6 Link-Local Addresses in Web Browsers
+
+Browsers operate differently from simple command-line tools such as ping, ssh
+or netcat. These tools generally take a destination as input from the
+command-line, resolve that destination string into an IP address (or list of
+addresses) via a function such as getaddrinfo ({{?RFC3493}}), and then
+immediately perform socket operations using that address. Supporting zone
+identifiers in these scenarios is pretty simple because the result of
+resolution is only used in socket operations.
+
+One might assume that Web browsers operate similarly, but that would be
+incorrect. Browsers follow the Web security model, which is based around the
+concept of an Origin ({{?RFC6454}}). The origin is propagated throughout the
+browser software: it is involved in whether to use a resource in the HTTP cache
+({{?RFC9111}}), it is checked when deciding to allow sharing information
+({{CORS}}), it is used to save security policies ({{?RFC6797}}), and in many
+other cases beyond making socket operations. Additionally, all the portions of
+the origin are sent to the server in HTTP ({{?RFC9110}}).
+
+In contrast, the zone identifier is only valid and meaningful in a given node.
+As specified in {{RFC4007}}, the zone identifier from a given node cannot be
+used by other node and it cannot be sent over the wire. This makes it
+fundamentally incompatible with the concept of Origins.
+
+The solution in {{RFC6874}} requires the browser to treat the zone identifier
+as part of the origin in some contexts (such as when determining uniqueness of
+a name), but not in others (such as when sending on the wire). This
+significantly increases implementation complexity and security risks.
+
+Conversely, the proposal in {{DRAFT-6874BIS}} sends the zone identifier over
+the wire, and suggests that the recipient not make use of it. This creates new
+implementation complexity, now on the HTTP server. It also doesn't address the
+multitude of implementation changes required to incorporate the changes in URL
+parsing.
+
+In all cases, implementation matters are further complicated by the fact that
+the percent character ("%") is used in URLs for percent-encoding. While each
+proposal offered a different resolution to this encoding issues, all of them
+have significant downsides.
+
+Regardless of which specific mechanism is used to encode zone identifiers in
+URIs, the complexity of Web browsers and widespread use of Origins make it
+impossible to implement zone identifiers without large engineering efforts.
+
+Seperately, the proposal in {{DRAFT-ZONE-UI}} would require querying the user
+from many distinct browser components to determine the correct zone identifier
+to use. That is particularly difficult to implement in multi-process browser
+architectures. It would also confuse the user when they receive a popup for a
+link-local address that appeared in HTML.
+
+# Goal Definition {#goals}
+
+However, the top-level goal of all these efforts is to allow link-local
+communication via URLs. That does not require encoding IPv6 link-local
+addresses in URIs. All that is is needed is for the URI to contain information
+that resolves to the correct link-local address.
+
+The deployment of IPv6 happened in part because it did not require users be
+aware of IPv6 addresses, nor remember them, nor type them into browser address
+bars. It happened transparently to the user, thanks to the DNS: once it was
+possible to query IPv6 addresses from the DNS (see {{?RFC3596}}), users could
+browse the Web over IPv6 without having to ever see an IPv6 address. Surfacing
+IPv6 link-local addresses to users is not required.
 
 # Recommendations for Link-Local Connectivity {#recommendations}
 
-Instead of focusing on IPv6 link-local addresses, it is important to remember
-that the goal is to enable link-local connectivity, not necessarily to surface
-IPv6 link-local addresses to users. The deployment of IPv6 happened in part
-because it did not require users be aware of IPv6 addresses, not remember them,
-not type them into browser address bars. It happened transparently to the user,
-thanks to the DNS: once it was possible to query IPv6 addresses from the DNS
-(see {{?RFC3596}}), users could browse the web over IPv6 without having to ever
-see an IPv6 address.
-
-This logic also applies to local connectivity in the absence of centralized IP
-addressing infrastructure, because DNS hostnames can resolve to link-local
-addresses. In the absence of centralized DNS infrastructure, mDNS (see
-{{!RFC6762}}) can be used to resolve link-local addresses from instance names.
+The concept of address resolution also applies to local connectivity in the
+absence of centralized IP addressing infrastructure, because DNS hostnames can
+resolve to link-local addresses. In the absence of centralized DNS
+infrastructure, mDNS (see {{!RFC6762}}) can be used to resolve link-local
+addresses from instance names.
 
 Devices that are reachable over IP link-local connectivity and that host
 servers of URI-based protocols SHOULD create an mDNS local instance name for
 themselves and SHOULD respond to mDNS queries for that instance name.
+
+If the instance name is defined to be unique (for example by including a unique
+serial number), it can then be encoded in an URL that can be printed on the
+device packaging, either as text or in the form of a QR code. Otherwise,
+devices can rely on mDNS conflict resolution ({{Section 9 of RFC6762}}) to
+ensure unique names, and then browse for the relevant service ({{Section 4 of
+!RFC6763}}).
+
+Following these recommendations solves the goals described in {{goals}} without
+requiring any changes in Web browser software.
 
 # Security Considerations
 
