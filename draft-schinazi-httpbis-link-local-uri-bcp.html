@@ -12,8 +12,8 @@ each other without the need for centralized IP addressing infrastructure. The
 IP prefixes 169.254.0.0/16 and fe80::/10 were reserved for this purpose.
 However, both IP versions have limitations that make link-local addresses
 unideal for usage with URI-based protocols. This document provides guidance for
-how best to enable such link-local connectivity in such protocols. This
-document also obsoletes RFC 6874, a previous attempt at solving this issue. 
+how best to enable link-local connectivity in such protocols. This document
+also obsoletes RFC 6874, a previous attempt at solving this issue. 
     " name="description">
 <meta content="xml2rfc 3.19.4" name="generator">
 <meta content="IPv6 deployment" name="keyword">
@@ -1038,7 +1038,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Schinazi</td>
-<td class="center">Expires 23 August 2024</td>
+<td class="center">Expires 24 August 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1054,12 +1054,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc6874" class="eref">6874</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-02-20" class="published">20 February 2024</time>
+<time datetime="2024-02-21" class="published">21 February 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Best Current Practice</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-08-23">23 August 2024</time></dd>
+<dd class="expires"><time datetime="2024-08-24">24 August 2024</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1077,8 +1077,8 @@ each other without the need for centralized IP addressing infrastructure. The
 IP prefixes 169.254.0.0/16 and fe80::/10 were reserved for this purpose.
 However, both IP versions have limitations that make link-local addresses
 unideal for usage with URI-based protocols. This document provides guidance for
-how best to enable such link-local connectivity in such protocols. This
-document also obsoletes RFC 6874, a previous attempt at solving this issue.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+how best to enable link-local connectivity in such protocols. This document
+also obsoletes RFC 6874, a previous attempt at solving this issue.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1114,7 +1114,7 @@ document also obsoletes RFC 6874, a previous attempt at solving this issue.<a hr
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 23 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1152,44 +1152,61 @@ document also obsoletes RFC 6874, a previous attempt at solving this issue.<a hr
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-background" class="internal xref">Background</a></p>
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-limitations" class="internal xref">Limitations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
-                <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-uris-urls-and-a-tale-of-two" class="internal xref">URIs, URLs, and A Tale of Two Specifications</a></p>
+                <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-limitations-of-link-local-i" class="internal xref">Limitations of Link-Local IPv4 Addresses</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
-                <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-ipv6-link-local-addresses-i" class="internal xref">IPv6 Link-Local Addresses in URLs</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
-                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-further-attempts" class="internal xref">Further Attempts</a></p>
+                <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-limitations-of-link-local-ip" class="internal xref">Limitations of Link-Local IPv6 Addresses</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-recommendations-for-link-lo" class="internal xref">Recommendations for Link-Local Connectivity</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-references" class="internal xref">References</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-background" class="internal xref">Background</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
-                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-uris-urls-and-a-tale-of-two" class="internal xref">URIs, URLs, and A Tale of Two Specifications</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
-                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-ipv6-link-local-addresses-i" class="internal xref">IPv6 Link-Local Addresses in URLs</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-further-attempts" class="internal xref">Further Attempts</a></p>
 </li>
             </ul>
 </li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-handling-ipv6-link-local-ad" class="internal xref">Handling IPv6 Link-Local Addresses in Web Browsers</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-goal-definition" class="internal xref">Goal Definition</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-recommendations-for-link-lo" class="internal xref">Recommendations for Link-Local Connectivity</a></p>
+</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
 </li>
         </ul>
 </nav>
@@ -1200,39 +1217,21 @@ document also obsoletes RFC 6874, a previous attempt at solving this issue.<a hr
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">While the majority of IP networking uses globally routable addresses, those
+<p id="section-1-1">To simplify configuration of new hardware, manufacturers often print
+configuration URLs on labels to allow the user to reach the configuration page
+by copying the URL into their browser. This is often simplified further by
+encoding the URL in a QR code and asking the user to scan it with a smartphone.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">While the majority of IP networking uses globally routable addresses, those
 rely on addressing infrastructure that isn't always available. For example, two
 hosts connected via a direct peer-to-peer link may not have access to an entity
 assigning IP addresses through DHCP or IPv6 router advertisements. Connectivity
 is often desirable in such scenarios, and can be accomplished using link-local
 addresses. This feature was added in IPv6 <span>[<a href="#RFC4007" class="cite xref">RFC4007</a>]</span> and retroactively
-backported to IPv4 <span>[<a href="#RFC3927" class="cite xref">RFC3927</a>]</span>. However, these addresses have limitations:<a href="#section-1-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-1-2.1">
-          <p id="section-1-2.1.1">In order to simplify implementations (and as recommended in <span>[<a href="#RFC3927" class="cite xref">RFC3927</a>]</span>),
-most implementations disable IPv4 link-local addresses any time globally
-routeable addresses are available. This can lead to instability of link-local
-addresses. Additionally, these addresses are generated randomly with fewer
-than 16 bits of entropy, making conflicts statistically likely.<a href="#section-1-2.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-1-2.2">
-          <p id="section-1-2.2.1">In IPv6, link-local addresses are generated randomly with 64 bits of entropy,
-making conflicts statistically unlikely. Additionally, in IPv6 the use of
-multiple addresses per interface is encouraged. This allows link-local
-addresses to remain even when globally routable addresses change. However,
-IPv6 introduced the concept of a scope zone (<span><a href="https://rfc-editor.org/rfc/rfc4007#section-5" class="relref">Section 5</a> of [<a href="#RFC4007" class="cite xref">RFC4007</a>]</span>) and
-requires that every host include a zone identifier when sending to any IPv6
-link-local address. (While in theory <span>[<a href="#RFC4007" class="cite xref">RFC4007</a>]</span> defined a "default" zone,
-that is not widely supported. Most operating systems still require the scope
-identifier when making a socket operation on IPv6 link-local addresses.)
-Unfortunately, IPv6 address support was added to URLs <span>[<a href="#RFC2732" class="cite xref">RFC2732</a>]</span> prior to
-the creation of IPv6 scoped addresses, which effectively prevented the use of
-link-local IPv6 addresses in URLs.<a href="#section-1-2.2.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
+backported to IPv4 <span>[<a href="#RFC3927" class="cite xref">RFC3927</a>]</span>. However, these addresses have limitations that
+make them unsuitable for use in URLs, as described in <a href="#limitations" class="auto internal xref">Section 2</a>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This document obsoletes <span>[<a href="#RFC6874" class="cite xref">RFC6874</a>]</span>, a previous attempt at solving this
-problem that failed, as described in <a href="#attempt-6874" class="auto internal xref">Section 2.2</a>. This document provides
-recommendations for another solution to this problem in <a href="#recommendations" class="auto internal xref">Section 3</a>.<a href="#section-1-3" class="pilcrow">¶</a></p>
+problem that failed, as described in <a href="#attempt-6874" class="auto internal xref">Section 3.2</a>. This document provides
+recommendations that solve this problem in <a href="#recommendations" class="auto internal xref">Section 6</a>.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <div id="conventions-and-definitions">
 <section id="section-1.1">
         <h3 id="name-conventions-and-definitions">
@@ -1246,143 +1245,256 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
 </div>
 </section>
 </div>
-<div id="background">
+<div id="limitations">
 <section id="section-2">
-      <h2 id="name-background">
-<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-background" class="section-name selfRef">Background</a>
+      <h2 id="name-limitations">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-limitations" class="section-name selfRef">Limitations</a>
       </h2>
-<div id="uris-urls-and-a-tale-of-two-specifications">
+<p id="section-2-1">Since there is clear value in being able to configure new devices in the
+absence of IP addressing infrastructure, there is interest in supporting
+link-local connectivity via URLs. However, link-local addresses have
+limitations in this regard.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<div id="limitations-of-link-local-ipv4-addresses">
 <section id="section-2.1">
-        <h3 id="name-uris-urls-and-a-tale-of-two">
-<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-uris-urls-and-a-tale-of-two" class="section-name selfRef">URIs, URLs, and A Tale of Two Specifications</a>
+        <h3 id="name-limitations-of-link-local-i">
+<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-limitations-of-link-local-i" class="section-name selfRef">Limitations of Link-Local IPv4 Addresses</a>
         </h3>
-<p id="section-2.1-1">URIs and URLs were created early in the development of the World-Wide Web and
+<p id="section-2.1-1">In order to simplify implementations (and as recommended in <span>[<a href="#RFC3927" class="cite xref">RFC3927</a>]</span>), most
+implementations disable IPv4 link-local addresses any time globally routeable
+addresses are available. This can lead to instability of link-local addresses.
+Additionally, these addresses are generated randomly with fewer than 16 bits of
+entropy, making conflicts statistically likely.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.1-2">Both of these limitations make it impossible for a device to print a
+configuration URL on its packaging that uses a static IPv4 link-local address.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="limitations-of-link-local-ipv6-addresses">
+<section id="section-2.2">
+        <h3 id="name-limitations-of-link-local-ip">
+<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-limitations-of-link-local-ip" class="section-name selfRef">Limitations of Link-Local IPv6 Addresses</a>
+        </h3>
+<p id="section-2.2-1">In IPv6, link-local addresses are generated randomly with 64 bits of entropy,
+making conflicts statistically unlikely. Additionally, in IPv6 the use of
+multiple addresses per interface is encouraged. This allows link-local
+addresses to remain even when globally routable addresses change.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-2">However, IPv6 introduced the concept of a scope zone (<span><a href="https://rfc-editor.org/rfc/rfc4007#section-5" class="relref">Section 5</a> of [<a href="#RFC4007" class="cite xref">RFC4007</a>]</span>)
+and requires that every host include a zone identifier when sending to any IPv6
+link-local address. While <span>[<a href="#RFC4007" class="cite xref">RFC4007</a>]</span> defined a "default" zone, that is not
+widely supported: most operating systems still require the scope identifier
+when making a socket operation on IPv6 link-local addresses. This means that
+IPv6 link-local addresses have to be accompanied by a zone identifier from the
+moment that the address enters the process.<a href="#section-2.2-2" class="pilcrow">¶</a></p>
+<p id="section-2.2-3">Unfortunately, IPv6 address support was added to URLs <span>[<a href="#RFC2732" class="cite xref">RFC2732</a>]</span> prior to the
+creation of IPv6 scoped addresses, leaving the URL format for IPv6 addresses
+incapable of representing zone identifiers. This effectively prevented the use
+of link-local IPv6 addresses in URLs.<a href="#section-2.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="background">
+<section id="section-3">
+      <h2 id="name-background">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-background" class="section-name selfRef">Background</a>
+      </h2>
+<p id="section-3-1">Before diving into potential solutions to these limitations, readers will
+benefit from the following relevant historical context.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<div id="uris-urls-and-a-tale-of-two-specifications">
+<section id="section-3.1">
+        <h3 id="name-uris-urls-and-a-tale-of-two">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-uris-urls-and-a-tale-of-two" class="section-name selfRef">URIs, URLs, and A Tale of Two Specifications</a>
+        </h3>
+<p id="section-3.1-1">URIs and URLs were created early in the development of the World-Wide Web and
 were brought to the IETF in 1994 (see <span>[<a href="#RFC1630" class="cite xref">RFC1630</a>]</span> and <span>[<a href="#RFC1738" class="cite xref">RFC1738</a>]</span>). Over the
 years, the IETF maintained and evolved these specifications. In particular,
 support for IPv6 addresses was added in 1999 (see <span>[<a href="#RFC2732" class="cite xref">RFC2732</a>]</span>). The IETF
-published an updated URI specification in 2005 (<span>[<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>).<a href="#section-2.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.1-2">In 2004, a group of browser vendors created the WHATWG, an effort to evolve
+published an updated URI specification in 2005 (<span>[<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>).<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">In 2004, a group of browser vendors created the WHATWG, an effort to evolve
 Web-related specifications outside of the W3C or IETF. The WHATWG eventually
 forked the URL specification from IETF by creating the WHATWG URL Living
 Standard (<span>[<a href="#URL-LS" class="cite xref">URL-LS</a>]</span>). From that point onwards, even though development of URIs
-and URLs continued at IETF, this work generally didn't lead to corresponding
-implementation changes in Web browsers.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
-<p id="section-2.1-3">Almost two decades later, the situation hasn't changed. The IETF still
+and URLs continued at the IETF, this work often didn't lead to corresponding
+implementation changes in Web browsers.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1-3">Almost two decades later, the situation hasn't changed. The IETF still
 maintains URL/URI specifications that are authoritative in all contexts except
 the Web, while the WHATWG maintains a URL specification that is authoritative
-for Web browsers. Note that the use of the word authoritative here is somewhat
-of a stretch: neither of these standards bodies have any actual authority to
-enforce that their specifications be followed, and instead rely on implementers
-choosing to follow the specification.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
+for Web browsers. Note that the use of the word "authoritative" here is
+somewhat of a misnomer: neither of these standards bodies have any actual
+authority to enforce that their specifications be followed, and instead rely on
+implementers choosing to follow the specification.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="attempt-6874">
-<section id="section-2.2">
+<section id="section-3.2">
         <h3 id="name-ipv6-link-local-addresses-i">
-<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-ipv6-link-local-addresses-i" class="section-name selfRef">IPv6 Link-Local Addresses in URLs</a>
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-ipv6-link-local-addresses-i" class="section-name selfRef">IPv6 Link-Local Addresses in URLs</a>
         </h3>
-<p id="section-2.2-1">As the Web gained in popularity, and increasing number of networked devices
-such as routers or printers started to incorporate Web servers as their primary
-means of communication. Many of these devices function properly without
+<p id="section-3.2-1">As the Web gained in popularity, an increasing number of networked devices such
+as routers or printers started to incorporate Web servers as their primary
+means of configuration. Many of these devices function properly without
 centralized IP addressing infrastructure, so there was interest in
-communicating with them using IPv6 link-local addresses.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
-<p id="section-2.2-2">Over the course of 2012 and 2013, this led to the creation and publication of
+communicating with them using IPv6 link-local addresses.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">Over the course of 2012 and 2013, this led to the creation and publication of
 <span>[<a href="#RFC6874" class="cite xref">RFC6874</a>]</span>, an update to the IETF URL specification that defines how to
-represent IP zone identifiers in URLs. This didn't lead to any implementation
-changes in Web browsers. The main concern from browsers what that such a change
+represent IP zone identifiers in URLs. The majority of Web browsers did not
+implement this change. The main concern from browsers what that such a change
 would require modifying many different components of the browser, with the
-associated security risks and maintenance costs. All browsers came to the
-conclusion that such a change was not worth the effort. Further examples of
-what made <span>[<a href="#RFC6874" class="cite xref">RFC6874</a>]</span> complex to implement are listed in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6874bis-09#section-2" class="relref">Section 2</a> of [<a href="#RFC6874BIS" class="cite xref">RFC6874BIS</a>]</span>. After browsers decided not to
+associated security risks and maintenance costs. Almost all browsers came to
+the conclusion that such a change was not worth the effort. Further examples of
+what made <span>[<a href="#RFC6874" class="cite xref">RFC6874</a>]</span> complex to implement are listed in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6874bis-09#section-2" class="relref">Section 2</a> of [<a href="#DRAFT-6874BIS" class="cite xref">DRAFT-6874BIS</a>]</span>. After browsers decided not to
 implement it, the WHAT URL Living Standard was updated to mark the zone
 identifier as "intentionally omitted" (see <span>[<a href="#URL-ZONE-TRACKER1" class="cite xref">URL-ZONE-TRACKER1</a>]</span>). The WHATWG
 subsequently rejected a request to add zone identifiers to their URL
-specification (see <span>[<a href="#URL-ZONE-TRACKER2" class="cite xref">URL-ZONE-TRACKER2</a>]</span>).<a href="#section-2.2-2" class="pilcrow">¶</a></p>
+specification (see <span>[<a href="#URL-ZONE-TRACKER2" class="cite xref">URL-ZONE-TRACKER2</a>]</span>).<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="further-attempts">
-<section id="section-2.3">
+<section id="section-3.3">
         <h3 id="name-further-attempts">
-<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-further-attempts" class="section-name selfRef">Further Attempts</a>
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-further-attempts" class="section-name selfRef">Further Attempts</a>
         </h3>
-<p id="section-2.3-1">After it was clear no browser was going to implement <span>[<a href="#RFC6874" class="cite xref">RFC6874</a>]</span>, another
-attempt was made to modify the URI RFC: <span>[<a href="#RFC6874BIS" class="cite xref">RFC6874BIS</a>]</span>. While this attempted to
-address some of the difficulties in implementing <span>[<a href="#RFC6874" class="cite xref">RFC6874</a>]</span>, it did not
-address the fact that browsers were not willing to start such a complex
+<p id="section-3.3-1">After it was clear that most browser were not going to implement <span>[<a href="#RFC6874" class="cite xref">RFC6874</a>]</span>,
+another attempt was made to modify the URI RFC: <span>[<a href="#DRAFT-6874BIS" class="cite xref">DRAFT-6874BIS</a>]</span>. While this
+attempted to address some of the difficulties in implementing <span>[<a href="#RFC6874" class="cite xref">RFC6874</a>]</span>, it
+did not address the fact that browsers were not willing to start such a complex
 implementation effort given the small usage it was expected to receive. That
-document failed to achieve consensus and was never published.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
-<p id="section-2.3-2">Later, another attempt was made to allow Web browsers to communicate via IPv6
-link-local addresses: <span>[<a href="#ZONE-UI" class="cite xref">ZONE-UI</a>]</span>. In this
-attempt, the zone identifier is no longer encoded in the URI. Instead client
-applications are requested to offer UI to allow selecting the zone identifier.
-While that document does not mention the Web or browsers directly, its
-publication could be used to help convince browsers to implement support for
-IPv6 link-local addresses. Similarly, this proposal does not seem to be gaining
-support from browser vendors.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
+document failed to achieve consensus and was not published.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-2">Later, another attempt was made to allow Web browsers to communicate via IPv6
+link-local addresses: <span>[<a href="#DRAFT-ZONE-UI" class="cite xref">DRAFT-ZONE-UI</a>]</span>.
+In this attempt, the zone identifier is no longer encoded in the URI. Instead,
+client applications are requested to offer UI to allow selecting the zone
+identifier. While that document does not mention the Web or browsers directly,
+its publication could be used to help convince browsers to implement support
+for IPv6 link-local addresses. Similarly, this proposal does not seem to be
+gaining support from browser vendors.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
+</section>
+</div>
+<div id="handling-ipv6-link-local-addresses-in-web-browsers">
+<section id="section-4">
+      <h2 id="name-handling-ipv6-link-local-ad">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-handling-ipv6-link-local-ad" class="section-name selfRef">Handling IPv6 Link-Local Addresses in Web Browsers</a>
+      </h2>
+<p id="section-4-1">Browsers operate differently from simple command-line tools such as ping, ssh
+or netcat. These tools generally take a destination as input from the
+command-line, resolve that destination string into an IP address (or list of
+addresses) via a function such as getaddrinfo (<span>[<a href="#RFC3493" class="cite xref">RFC3493</a>]</span>), and then
+immediately perform socket operations using that address. Supporting zone
+identifiers in these scenarios is pretty simple because the result of
+resolution is only used in socket operations.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">One might assume that Web browsers operate similarly, but that would be
+incorrect. Browsers follow the Web security model, which is based around the
+concept of an Origin (<span>[<a href="#RFC6454" class="cite xref">RFC6454</a>]</span>). The origin is propagated throughout the
+browser software: it is involved in whether to use a resource in the HTTP cache
+(<span>[<a href="#RFC9111" class="cite xref">RFC9111</a>]</span>), it is checked when deciding to allow sharing information
+(<span>[<a href="#CORS" class="cite xref">CORS</a>]</span>), it is used to save security policies (<span>[<a href="#RFC6797" class="cite xref">RFC6797</a>]</span>), and in many
+other cases beyond making socket operations. Additionally, all the portions of
+the origin are sent to the server in HTTP (<span>[<a href="#RFC9110" class="cite xref">RFC9110</a>]</span>).<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-3">In contrast, the zone identifier is only valid and meaningful in a given node.
+As specified in <span>[<a href="#RFC4007" class="cite xref">RFC4007</a>]</span>, the zone identifier from a given node cannot be
+used by other node and it cannot be sent over the wire. This makes it
+fundamentally incompatible with the concept of Origins.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-4">The solution in <span>[<a href="#RFC6874" class="cite xref">RFC6874</a>]</span> requires the browser to treat the zone identifier
+as part of the origin in some contexts (such as when determining uniqueness of
+a name), but not in others (such as when sending on the wire). This
+significantly increases implementation complexity and security risks.<a href="#section-4-4" class="pilcrow">¶</a></p>
+<p id="section-4-5">Conversely, the proposal in <span>[<a href="#DRAFT-6874BIS" class="cite xref">DRAFT-6874BIS</a>]</span> sends the zone identifier over
+the wire, and suggests that the recipient not make use of it. This creates new
+implementation complexity, now on the HTTP server. It also doesn't address the
+multitude of implementation changes required to incorporate the changes in URL
+parsing.<a href="#section-4-5" class="pilcrow">¶</a></p>
+<p id="section-4-6">In all cases, implementation matters are further complicated by the fact that
+the percent character ("%") is used in URLs for percent-encoding. While each
+proposal offered a different resolution to this encoding issues, all of them
+have significant downsides.<a href="#section-4-6" class="pilcrow">¶</a></p>
+<p id="section-4-7">Regardless of which specific mechanism is used to encode zone identifiers in
+URIs, the complexity of Web browsers and widespread use of Origins make it
+impossible to implement zone identifiers without large engineering efforts.<a href="#section-4-7" class="pilcrow">¶</a></p>
+<p id="section-4-8">Seperately, the proposal in <span>[<a href="#DRAFT-ZONE-UI" class="cite xref">DRAFT-ZONE-UI</a>]</span> would require querying the user
+from many distinct browser components to determine the correct zone identifier
+to use. That is particularly difficult to implement in multi-process browser
+architectures. It would also confuse the user when they receive a popup for a
+link-local address that appeared in HTML.<a href="#section-4-8" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="goals">
+<section id="section-5">
+      <h2 id="name-goal-definition">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-goal-definition" class="section-name selfRef">Goal Definition</a>
+      </h2>
+<p id="section-5-1">However, the top-level goal of all these efforts is to allow link-local
+communication via URLs. That does not require encoding IPv6 link-local
+addresses in URIs. All that is is needed is for the URI to contain information
+that resolves to the correct link-local address.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">The deployment of IPv6 happened in part because it did not require users be
+aware of IPv6 addresses, nor remember them, nor type them into browser address
+bars. It happened transparently to the user, thanks to the DNS: once it was
+possible to query IPv6 addresses from the DNS (see <span>[<a href="#RFC3596" class="cite xref">RFC3596</a>]</span>), users could
+browse the Web over IPv6 without having to ever see an IPv6 address. Surfacing
+IPv6 link-local addresses to users is not required.<a href="#section-5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="recommendations">
-<section id="section-3">
+<section id="section-6">
       <h2 id="name-recommendations-for-link-lo">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-recommendations-for-link-lo" class="section-name selfRef">Recommendations for Link-Local Connectivity</a>
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-recommendations-for-link-lo" class="section-name selfRef">Recommendations for Link-Local Connectivity</a>
       </h2>
-<p id="section-3-1">Instead of focusing on IPv6 link-local addresses, it is important to remember
-that the goal is to enable link-local connectivity, not necessarily to surface
-IPv6 link-local addresses to users. The deployment of IPv6 happened in part
-because it did not require users be aware of IPv6 addresses, not remember them,
-not type them into browser address bars. It happened transparently to the user,
-thanks to the DNS: once it was possible to query IPv6 addresses from the DNS
-(see <span>[<a href="#RFC3596" class="cite xref">RFC3596</a>]</span>), users could browse the web over IPv6 without having to ever
-see an IPv6 address.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">This logic also applies to local connectivity in the absence of centralized IP
-addressing infrastructure, because DNS hostnames can resolve to link-local
-addresses. In the absence of centralized DNS infrastructure, mDNS (see
-<span>[<a href="#RFC6762" class="cite xref">RFC6762</a>]</span>) can be used to resolve link-local addresses from instance names.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">Devices that are reachable over IP link-local connectivity and that host
+<p id="section-6-1">The concept of address resolution also applies to local connectivity in the
+absence of centralized IP addressing infrastructure, because DNS hostnames can
+resolve to link-local addresses. In the absence of centralized DNS
+infrastructure, mDNS (see <span>[<a href="#RFC6762" class="cite xref">RFC6762</a>]</span>) can be used to resolve link-local
+addresses from instance names.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">Devices that are reachable over IP link-local connectivity and that host
 servers of URI-based protocols <span class="bcp14">SHOULD</span> create an mDNS local instance name for
-themselves and <span class="bcp14">SHOULD</span> respond to mDNS queries for that instance name.<a href="#section-3-3" class="pilcrow">¶</a></p>
+themselves and <span class="bcp14">SHOULD</span> respond to mDNS queries for that instance name.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-3">If the instance name is defined to be unique (for example by including a unique
+serial number), it can then be encoded in an URL that can be printed on the
+device packaging, either as text or in the form of a QR code. Otherwise,
+devices can rely on mDNS conflict resolution (<span><a href="https://rfc-editor.org/rfc/rfc6762#section-9" class="relref">Section 9</a> of [<a href="#RFC6762" class="cite xref">RFC6762</a>]</span>) to
+ensure unique names, and then browse for the relevant service (<span><a href="https://rfc-editor.org/rfc/rfc6763#section-4" class="relref">Section 4</a> of [<a href="#RFC6763" class="cite xref">RFC6763</a>]</span>).<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-4">Following these recommendations solves the goals described in <a href="#goals" class="auto internal xref">Section 5</a> without
+requiring any changes in Web browser software.<a href="#section-6-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-4">
+<section id="section-7">
       <h2 id="name-security-considerations">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-4-1">Many aspects of the Web security model rely on using a name as a root of
-security. This has the following consequences:<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">Many aspects of the Web security model rely on using a name as a root of
+security. This has the following consequences:<a href="#section-7-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4-2.1">
-          <p id="section-4-2.1.1">name unicity matters, as conflicts can lead the two devices sharing a name to
-incorrectly share a security boundary.<a href="#section-4-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7-2.1">
+          <p id="section-7-2.1.1">name unicity matters, as conflicts can lead the two devices sharing a name to
+incorrectly share a security boundary.<a href="#section-7-2.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-4-2.2">
-          <p id="section-4-2.2.1">HTTPS/WebPKI security relies on globally-registered names, and is therefore
+        <li class="normal" id="section-7-2.2">
+          <p id="section-7-2.2.1">HTTPS/WebPKI security relies on globally-registered names, and is therefore
 not available for link-local connectivity. Such link-local communication is
-therefore inherently not authenticated.<a href="#section-4-2.2.1" class="pilcrow">¶</a></p>
+therefore inherently not authenticated.<a href="#section-7-2.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-4-3">Fundamentally, mDNS has similar security properties as the underlying
-link-local address it resolves to.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-7-3">Fundamentally, mDNS has similar security properties as the underlying
+link-local address it resolves to.<a href="#section-7-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-5">
+<section id="section-8">
       <h2 id="name-iana-considerations">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-5-1">This document has no IANA actions.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-8-1">This document has no IANA actions.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<section id="section-6">
+<section id="section-9">
       <h2 id="name-references">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
 <div id="sec-normative-references">
-<section id="section-6.1">
+<section id="section-9.1">
         <h3 id="name-normative-references">
-<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>
@@ -1393,6 +1505,10 @@ link-local address it resolves to.<a href="#section-4-3" class="pilcrow">¶</a><
         <dd>
 <span class="refAuthor">Cheshire, S.</span> and <span class="refAuthor">M. Krochmal</span>, <span class="refTitle">"Multicast DNS"</span>, <span class="seriesInfo">RFC 6762</span>, <span class="seriesInfo">DOI 10.17487/RFC6762</span>, <time datetime="2013-02" class="refDate">February 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6762">https://www.rfc-editor.org/rfc/rfc6762</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC6763">[RFC6763]</dt>
+        <dd>
+<span class="refAuthor">Cheshire, S.</span> and <span class="refAuthor">M. Krochmal</span>, <span class="refTitle">"DNS-Based Service Discovery"</span>, <span class="seriesInfo">RFC 6763</span>, <span class="seriesInfo">DOI 10.17487/RFC6763</span>, <time datetime="2013-02" class="refDate">February 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6763">https://www.rfc-editor.org/rfc/rfc6763</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
       <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
@@ -1401,11 +1517,23 @@ link-local address it resolves to.<a href="#section-4-3" class="pilcrow">¶</a><
 </section>
 </div>
 <div id="sec-informative-references">
-<section id="section-6.2">
+<section id="section-9.2">
         <h3 id="name-informative-references">
-<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
+<dt id="CORS">[CORS]</dt>
+        <dd>
+<span class="refTitle">"CORS protocol"</span>, <span class="seriesInfo">WHATWG Living Standard</span>, <span>&lt;<a href="https://fetch.spec.whatwg.org/#http-cors-protocol">https://fetch.spec.whatwg.org/#http-cors-protocol</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="DRAFT-6874BIS">[DRAFT-6874BIS]</dt>
+        <dd>
+<span class="refAuthor">Carpenter, B. E.</span>, <span class="refAuthor">Cheshire, S.</span>, and <span class="refAuthor">R. M. Hinden</span>, <span class="refTitle">"Representing IPv6 Zone Identifiers in Address Literals and Uniform Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-6man-rfc6874bis-09</span>, <time datetime="2023-07-02" class="refDate">2 July 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6874bis-09">https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6874bis-09</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="DRAFT-ZONE-UI">[DRAFT-ZONE-UI]</dt>
+        <dd>
+<span class="refAuthor">Carpenter, B. E.</span> and <span class="refAuthor">R. M. Hinden</span>, <span class="refTitle">"Entering IPv6 Zone Identifiers in User Interfaces"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-carpenter-6man-zone-ui-01</span>, <time datetime="2024-02-17" class="refDate">17 February 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-carpenter-6man-zone-ui-01">https://datatracker.ietf.org/doc/html/draft-carpenter-6man-zone-ui-01</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC1630">[RFC1630]</dt>
         <dd>
 <span class="refAuthor">Berners-Lee, T.</span>, <span class="refTitle">"Universal Resource Identifiers in WWW: A Unifying Syntax for the Expression of Names and Addresses of Objects on the Network as used in the World-Wide Web"</span>, <span class="seriesInfo">RFC 1630</span>, <span class="seriesInfo">DOI 10.17487/RFC1630</span>, <time datetime="1994-06" class="refDate">June 1994</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc1630">https://www.rfc-editor.org/rfc/rfc1630</a>&gt;</span>. </dd>
@@ -1417,6 +1545,10 @@ link-local address it resolves to.<a href="#section-4-3" class="pilcrow">¶</a><
 <dt id="RFC2732">[RFC2732]</dt>
         <dd>
 <span class="refAuthor">Hinden, R.</span>, <span class="refAuthor">Carpenter, B.</span>, and <span class="refAuthor">L. Masinter</span>, <span class="refTitle">"Format for Literal IPv6 Addresses in URL's"</span>, <span class="seriesInfo">RFC 2732</span>, <span class="seriesInfo">DOI 10.17487/RFC2732</span>, <time datetime="1999-12" class="refDate">December 1999</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2732">https://www.rfc-editor.org/rfc/rfc2732</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3493">[RFC3493]</dt>
+        <dd>
+<span class="refAuthor">Gilligan, R.</span>, <span class="refAuthor">Thomson, S.</span>, <span class="refAuthor">Bound, J.</span>, <span class="refAuthor">McCann, J.</span>, and <span class="refAuthor">W. Stevens</span>, <span class="refTitle">"Basic Socket Interface Extensions for IPv6"</span>, <span class="seriesInfo">RFC 3493</span>, <span class="seriesInfo">DOI 10.17487/RFC3493</span>, <time datetime="2003-02" class="refDate">February 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3493">https://www.rfc-editor.org/rfc/rfc3493</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC3596">[RFC3596]</dt>
         <dd>
@@ -1434,13 +1566,25 @@ link-local address it resolves to.<a href="#section-4-3" class="pilcrow">¶</a><
         <dd>
 <span class="refAuthor">Deering, S.</span>, <span class="refAuthor">Haberman, B.</span>, <span class="refAuthor">Jinmei, T.</span>, <span class="refAuthor">Nordmark, E.</span>, and <span class="refAuthor">B. Zill</span>, <span class="refTitle">"IPv6 Scoped Address Architecture"</span>, <span class="seriesInfo">RFC 4007</span>, <span class="seriesInfo">DOI 10.17487/RFC4007</span>, <time datetime="2005-03" class="refDate">March 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4007">https://www.rfc-editor.org/rfc/rfc4007</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC6454">[RFC6454]</dt>
+        <dd>
+<span class="refAuthor">Barth, A.</span>, <span class="refTitle">"The Web Origin Concept"</span>, <span class="seriesInfo">RFC 6454</span>, <span class="seriesInfo">DOI 10.17487/RFC6454</span>, <time datetime="2011-12" class="refDate">December 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6454">https://www.rfc-editor.org/rfc/rfc6454</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6797">[RFC6797]</dt>
+        <dd>
+<span class="refAuthor">Hodges, J.</span>, <span class="refAuthor">Jackson, C.</span>, and <span class="refAuthor">A. Barth</span>, <span class="refTitle">"HTTP Strict Transport Security (HSTS)"</span>, <span class="seriesInfo">RFC 6797</span>, <span class="seriesInfo">DOI 10.17487/RFC6797</span>, <time datetime="2012-11" class="refDate">November 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6797">https://www.rfc-editor.org/rfc/rfc6797</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC6874">[RFC6874]</dt>
         <dd>
 <span class="refAuthor">Carpenter, B.</span>, <span class="refAuthor">Cheshire, S.</span>, and <span class="refAuthor">R. Hinden</span>, <span class="refTitle">"Representing IPv6 Zone Identifiers in Address Literals and Uniform Resource Identifiers"</span>, <span class="seriesInfo">RFC 6874</span>, <span class="seriesInfo">DOI 10.17487/RFC6874</span>, <time datetime="2013-02" class="refDate">February 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6874">https://www.rfc-editor.org/rfc/rfc6874</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC6874BIS">[RFC6874BIS]</dt>
+<dt id="RFC9110">[RFC9110]</dt>
         <dd>
-<span class="refAuthor">Carpenter, B. E.</span>, <span class="refAuthor">Cheshire, S.</span>, and <span class="refAuthor">R. M. Hinden</span>, <span class="refTitle">"Representing IPv6 Zone Identifiers in Address Literals and Uniform Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-6man-rfc6874bis-09</span>, <time datetime="2023-07-02" class="refDate">2 July 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6874bis-09">https://datatracker.ietf.org/doc/html/draft-ietf-6man-rfc6874bis-09</a>&gt;</span>. </dd>
+<span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Semantics"</span>, <span class="seriesInfo">STD 97</span>, <span class="seriesInfo">RFC 9110</span>, <span class="seriesInfo">DOI 10.17487/RFC9110</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9110">https://www.rfc-editor.org/rfc/rfc9110</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9111">[RFC9111]</dt>
+        <dd>
+<span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Caching"</span>, <span class="seriesInfo">STD 98</span>, <span class="seriesInfo">RFC 9111</span>, <span class="seriesInfo">DOI 10.17487/RFC9111</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9111">https://www.rfc-editor.org/rfc/rfc9111</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="URL-HISTORY">[URL-HISTORY]</dt>
         <dd>
@@ -1455,12 +1599,8 @@ link-local address it resolves to.<a href="#section-4-3" class="pilcrow">¶</a><
 <span class="refTitle">"Support IPv6 link-local addresses?"</span>, <span>&lt;<a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=27234">https://www.w3.org/Bugs/Public/show_bug.cgi?id=27234</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="URL-ZONE-TRACKER2">[URL-ZONE-TRACKER2]</dt>
-        <dd>
-<span class="refTitle">"Support IPv6 zone identifiers"</span>, <span>&lt;<a href="https://github.com/whatwg/url/issues/392">https://github.com/whatwg/url/issues/392</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="ZONE-UI">[ZONE-UI]</dt>
       <dd>
-<span class="refAuthor">Carpenter, B. E.</span> and <span class="refAuthor">R. M. Hinden</span>, <span class="refTitle">"Entering IPv6 Zone Identifiers in User Interfaces"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-carpenter-6man-zone-ui-01</span>, <time datetime="2024-02-17" class="refDate">17 February 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-carpenter-6man-zone-ui-01">https://datatracker.ietf.org/doc/html/draft-carpenter-6man-zone-ui-01</a>&gt;</span>. </dd>
+<span class="refTitle">"Support IPv6 zone identifiers"</span>, <span>&lt;<a href="https://github.com/whatwg/url/issues/392">https://github.com/whatwg/url/issues/392</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
