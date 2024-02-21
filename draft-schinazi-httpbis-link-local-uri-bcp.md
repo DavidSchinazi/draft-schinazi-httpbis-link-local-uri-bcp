@@ -198,14 +198,14 @@ did not address the fact that browsers were not willing to start such a complex
 implementation effort given the small usage it was expected to receive. That
 document failed to achieve consensus and was not published.
 
-Later, another attempt was made to allow Web browsers to communicate via IPv6
-link-local addresses: {{?DRAFT-ZONE-UI=I-D.draft-carpenter-6man-zone-ui-01}}.
-In this attempt, the zone identifier is no longer encoded in the URI. Instead,
-client applications are requested to offer UI to allow selecting the zone
-identifier. While that document does not mention the Web or browsers directly,
-its publication could be used to help convince browsers to implement support
-for IPv6 link-local addresses. Similarly, this proposal does not seem to be
-gaining support from browser vendors.
+Later, an attempt was made to address the generic question of how users can
+input IPv6 link-local addresses into software interfaces
+{{?DRAFT-ZONE-UI=I-D.draft-carpenter-6man-zone-ui-01}}. In this model, the zone
+identifier is considered independently of the IPv6 address itself. In the case
+of Web browsers, the zone identifier would not be considered part of a URI.
+However, this does not in itself resolve all the difficulties in considering
+the zone identifier as part of the Web security model, as described in the next
+section.
 
 # Handling IPv6 Link-Local Addresses in Web Browsers
 
