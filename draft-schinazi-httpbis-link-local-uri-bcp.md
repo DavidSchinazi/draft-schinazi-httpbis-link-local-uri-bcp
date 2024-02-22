@@ -220,7 +220,7 @@ section.
 # Handling IPv6 Link-Local Addresses in Web Browsers
 
 Browsers operate differently from simple command-line tools such as ping, ssh
-or netcat. These tools generally take a destination as input from the
+or netcat. Those tools generally take a destination as input from the
 command-line, resolve that destination string into an IP address (or list of
 addresses) via a function such as getaddrinfo ({{?RFC3493}}), and then
 immediately perform socket operations using that address. Supporting zone
