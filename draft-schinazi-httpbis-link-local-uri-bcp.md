@@ -192,8 +192,7 @@ main concern from browsers what that such a change would require modifying many
 different components of the browser, with the associated security risks and
 maintenance costs. Almost all browsers came to the conclusion that such a
 change was not worth the effort. Further examples of what made {{RFC6874}}
-complex to implement are listed in {{Section 2 of
-?DRAFT-6874BIS=I-D.ietf-6man-rfc6874bis-09}}. After browsers decided not to
+complex to implement are listed in {{handling}}. After browsers decided not to
 implement it, the WHAT URL Living Standard was updated to mark the zone
 identifier as "intentionally omitted" (see {{URL-ZONE-TRACKER1}}). The WHATWG
 subsequently rejected a request to add zone identifiers to their URL
@@ -202,11 +201,12 @@ specification (see {{URL-ZONE-TRACKER2}}).
 ## Further Attempts
 
 After it was clear that most browser were not going to implement {{RFC6874}},
-another attempt was made to modify the URI RFC: {{DRAFT-6874BIS}}. While this
-attempted to address some of the difficulties in implementing {{RFC6874}}, it
-did not address the fact that browsers were not willing to start such a complex
-implementation effort given the small usage it was expected to receive. That
-document failed to achieve consensus and was not published.
+another attempt was made to modify the URI RFC:
+{{?DRAFT-6874BIS=I-D.ietf-6man-rfc6874bis}}. While this attempted to address
+some of the difficulties in implementing {{RFC6874}}, it did not address the
+fact that browsers were not willing to start such a complex implementation
+effort given the small usage it was expected to receive. That document failed
+to achieve consensus and was not published.
 
 Later, an attempt was made to address the generic question of how users can
 input IPv6 link-local addresses into software interfaces
@@ -217,7 +217,7 @@ However, this does not in itself resolve all the difficulties in considering
 the zone identifier as part of the Web security model, as described in the next
 section.
 
-# Handling IPv6 Link-Local Addresses in Web Browsers
+# Handling IPv6 Link-Local Addresses in Web Browsers {#handling}
 
 Browsers operate differently from simple command-line tools such as ping, ssh
 or netcat. Those tools generally take a destination as input from the
@@ -243,8 +243,8 @@ fundamentally incompatible with the concept of Origins.
 
 The solution in {{RFC6874}} requires the browser to treat the zone identifier
 as part of the origin in some contexts (such as when determining uniqueness of
-a name), but not in others (such as when sending on the wire). This
-significantly increases implementation complexity and security risks.
+a name), but not in others (such as when sending the Host header on the wire).
+This significantly increases implementation complexity and security risks.
 
 Conversely, the proposal in {{DRAFT-6874BIS}} sends the zone identifier over
 the wire, and suggests that the recipient not make use of it. This creates new
@@ -255,13 +255,13 @@ parsing.
 In all cases, implementation matters are further complicated by the fact that
 the percent character ("%") is used in URLs for percent-encoding. While each
 proposal offered a different resolution to this encoding issues, all of them
-have significant downsides.
+have significant downsides ranging from poor usability to ambiguous inputs.
 
 Regardless of which specific mechanism is used to encode zone identifiers in
 URIs, the complexity of Web browsers and widespread use of Origins make it
 impossible to implement zone identifiers without large engineering efforts.
 
-Seperately, the proposal in {{DRAFT-ZONE-UI}} would require querying the user
+Separately, the proposal in {{DRAFT-ZONE-UI}} would require querying the user
 from many distinct browser components to determine the correct zone identifier
 to use. That is particularly difficult to implement in multi-process browser
 architectures. It would also confuse the user when they receive a popup for a
@@ -291,15 +291,25 @@ addresses from instance names.
 
 Devices that are reachable over IP link-local connectivity and that host
 servers of URI-based protocols SHOULD create an mDNS local instance name for
-themselves and SHOULD respond to mDNS queries for that instance name.
+themselves and SHOULD respond to mDNS queries for that instance name. Device
+manufacturers SHOULD pick instance names to maximize the probability of the
+name being unique. For example, this can be accomplished by including the
+brand, model and serial number of the device in the name. Another option is to
+use a name derived from the device's MAC address.
 
 If the instance name is defined to be unique (for example by including a unique
 serial number), it can then be encoded in an URL that can be printed on the
-device packaging, either as text or in the form of a QR code. Otherwise,
-devices can rely on mDNS conflict resolution ({{Section 9 of RFC6762}}) to
-ensure unique names, and then browse for the relevant service ({{Section 4 of
-!RFC6763}}). However, Web browsers don't currently perform this browsing, so
-picking a name that guarantees uniqueness is RECOMMENDED.
+device packaging, either as text or in the form of a QR code.
+
+If the name is not unique, devices can rely on mDNS conflict resolution
+({{Section 9 of RFC6762}}) to ensure unique names, and then browse for the
+relevant service ({{Section 4 of !RFC6763}}). However, this has two
+limitations. First, Web browsers don't currently perform this browsing. Second,
+conflict resolution requires the conflicting devices to be in the same
+multicast domain, which isn't guaranteed. For example, the browser could be
+able to discover two devices both named "example.local" where one is on Wi-Fi
+and the other on Ethernet, but those two devices won't detect the name conflict
+if the Wi-Fi and Ethernet networks are not bridged.
 
 Following these recommendations solves the goals described in {{goals}} without
 requiring any changes in Web browser software.
@@ -342,5 +352,6 @@ This document has no IANA actions.
 Some of the historical context in this document came from prior research
 documented in {{?URL-HISTORY=I-D.ruby-url-problem}}. The author would like to
 thank {{{Brian E. Carpenter}}}, {{{Stuart Cheshire}}}, and {{{Bob Hinden}}} for
-their prior work in this space. Additionally, the author thanks {{{Eric
-Rescorla}}} and {{{Michael Sweet}}} for their review and comments.
+their prior work in this space. Additionally, the author thanks {{{Brian E.
+Carpenter}}}, {{{Eric Rescorla}}} and {{{Michael Sweet}}} for their review and
+comments.
