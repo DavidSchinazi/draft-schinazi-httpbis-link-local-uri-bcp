@@ -175,14 +175,24 @@ means of configuration. Many of these devices function properly without
 centralized IP addressing infrastructure, so there was interest in
 communicating with them using IPv6 link-local addresses.
 
-Over the course of 2012 and 2013, this led to the creation and publication of
-{{RFC6874}}, an update to the IETF URL specification that defines how to
-represent IP zone identifiers in URLs. The majority of Web browsers did not
-implement this change. The main concern from browsers what that such a change
-would require modifying many different components of the browser, with the
-associated security risks and maintenance costs. Almost all browsers came to
-the conclusion that such a change was not worth the effort. Further examples of
-what made {{RFC6874}} complex to implement are listed in {{Section 2 of
+In 2004 and 2005, an effort was started to allow representing zone identifiers
+in URIs {{?URI-ZONE-EARLY=I-D.fenner-literal-zone}}. That proposal leveraged
+the "IPvFuture" feature of the URI specification (see {{Section 3.2.2 of
+RFC3986}}), and example of the syntax is "[v1.fe80::a+en1]". That document was
+never published but its format ended up being used by CUPS in 2005
+({{?CUPS=I-D.sweet-uri-zoneid}}).
+
+Over the course of 2012 and 2013, a revival of this effort led to the creation
+and publication of {{RFC6874}}, an update to the IETF URL specification that
+defines how to represent IP zone identifiers in URLs. This version used the
+IPv6address syntax in URIs, an example of it being "[fe80::a%25en1]".
+
+The majority of Web browsers did not implement either of these changes. The
+main concern from browsers what that such a change would require modifying many
+different components of the browser, with the associated security risks and
+maintenance costs. Almost all browsers came to the conclusion that such a
+change was not worth the effort. Further examples of what made {{RFC6874}}
+complex to implement are listed in {{Section 2 of
 ?DRAFT-6874BIS=I-D.ietf-6man-rfc6874bis-09}}. After browsers decided not to
 implement it, the WHAT URL Living Standard was updated to mark the zone
 identifier as "intentionally omitted" (see {{URL-ZONE-TRACKER1}}). The WHATWG
@@ -288,10 +298,20 @@ serial number), it can then be encoded in an URL that can be printed on the
 device packaging, either as text or in the form of a QR code. Otherwise,
 devices can rely on mDNS conflict resolution ({{Section 9 of RFC6762}}) to
 ensure unique names, and then browse for the relevant service ({{Section 4 of
-!RFC6763}}).
+!RFC6763}}). However, Web browsers don't currently perform this browsing, so
+picking a name that guarantees uniqueness is RECOMMENDED.
 
 Following these recommendations solves the goals described in {{goals}} without
 requiring any changes in Web browser software.
+
+# Deployment Considerations
+
+DNS Service Discovery relies on either link-local multicast (in the case of
+mDNS) or on service registration infrastructure (such as
+{{?DNSSD-SRP=I-D.ietf-dnssd-srp}}). If a network blocks link-local multicast
+and does not offer service registration infrastructure as an alternative, then
+DNS service discovery cannot function. Because of this, the recommendations in
+this document won't work on such networks.
 
 # Security Considerations
 
@@ -301,9 +321,10 @@ security. This has the following consequences:
 * name unicity matters, as conflicts can lead the two devices sharing a name to
   incorrectly share a security boundary.
 
-* HTTPS/WebPKI security relies on globally-registered names, and is therefore
-  not available for link-local connectivity. Such link-local communication is
-  therefore inherently not authenticated.
+* HTTPS/WebPKI security currently relies on globally-registered names, and is
+  therefore not available for link-local connectivity. Such link-local
+  communication is therefore inherently not authenticated. Future work might
+  define mechanisms to trust local anchors, which would enable such security.
 
 Fundamentally, mDNS has similar security properties as the underlying
 link-local address it resolves to.
@@ -322,4 +343,4 @@ Some of the historical context in this document came from prior research
 documented in {{?URL-HISTORY=I-D.ruby-url-problem}}. The author would like to
 thank {{{Brian E. Carpenter}}}, {{{Stuart Cheshire}}}, and {{{Bob Hinden}}} for
 their prior work in this space. Additionally, the author thanks {{{Eric
-Rescorla}}} for their review and comments.
+Rescorla}}} and {{{Michael Sweet}}} for their review and comments.
