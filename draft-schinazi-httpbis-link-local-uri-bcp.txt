@@ -4,9 +4,9 @@
 
 HTTP                                                         D. Schinazi
 Internet-Draft                                                Google LLC
-Obsoletes: 6874 (if approved)                           21 February 2024
+Obsoletes: 6874 (if approved)                           22 February 2024
 Intended status: Best Current Practice                                  
-Expires: 24 August 2024
+Expires: 25 August 2024
 
 
    Best Practices for Link-Local Connectivity in URI-Based Protocols
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 August 2024.
+   This Internet-Draft will expire on 25 August 2024.
 
 Copyright Notice
 
@@ -88,11 +88,12 @@ Table of Contents
    4.  Handling IPv6 Link-Local Addresses in Web Browsers
    5.  Goal Definition
    6.  Recommendations for Link-Local Connectivity
-   7.  Security Considerations
-   8.  IANA Considerations
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+   7.  Deployment Considerations
+   8.  Security Considerations
+   9.  IANA Considerations
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Acknowledgments
    Author's Address
 
@@ -208,20 +209,31 @@ Table of Contents
    infrastructure, so there was interest in communicating with them
    using IPv6 link-local addresses.
 
-   Over the course of 2012 and 2013, this led to the creation and
-   publication of [RFC6874], an update to the IETF URL specification
-   that defines how to represent IP zone identifiers in URLs.  The
-   majority of Web browsers did not implement this change.  The main
-   concern from browsers what that such a change would require modifying
-   many different components of the browser, with the associated
-   security risks and maintenance costs.  Almost all browsers came to
-   the conclusion that such a change was not worth the effort.  Further
-   examples of what made [RFC6874] complex to implement are listed in
-   Section 2 of [DRAFT-6874BIS].  After browsers decided not to
-   implement it, the WHAT URL Living Standard was updated to mark the
-   zone identifier as "intentionally omitted" (see [URL-ZONE-TRACKER1]).
-   The WHATWG subsequently rejected a request to add zone identifiers to
-   their URL specification (see [URL-ZONE-TRACKER2]).
+   In 2004 and 2005, an effort was started to allow representing zone
+   identifiers in URIs [URI-ZONE-EARLY].  That proposal leveraged the
+   "IPvFuture" feature of the URI specification (see Section 3.2.2 of
+   [RFC3986]), and example of the syntax is "[v1.fe80::a+en1]".  That
+   document was never published but its format ended up being used by
+   CUPS in 2005 ([CUPS]).
+
+   Over the course of 2012 and 2013, a revival of this effort led to the
+   creation and publication of [RFC6874], an update to the IETF URL
+   specification that defines how to represent IP zone identifiers in
+   URLs.  This version used the IPv6address syntax in URIs, an example
+   of it being "[fe80::a%25en1]".
+
+   The majority of Web browsers did not implement either of these
+   changes.  The main concern from browsers what that such a change
+   would require modifying many different components of the browser,
+   with the associated security risks and maintenance costs.  Almost all
+   browsers came to the conclusion that such a change was not worth the
+   effort.  Further examples of what made [RFC6874] complex to implement
+   are listed in Section 2 of [DRAFT-6874BIS].  After browsers decided
+   not to implement it, the WHAT URL Living Standard was updated to mark
+   the zone identifier as "intentionally omitted" (see
+   [URL-ZONE-TRACKER1]).  The WHATWG subsequently rejected a request to
+   add zone identifiers to their URL specification (see
+   [URL-ZONE-TRACKER2]).
 
 3.3.  Further Attempts
 
@@ -332,12 +344,23 @@ Table of Contents
    that can be printed on the device packaging, either as text or in the
    form of a QR code.  Otherwise, devices can rely on mDNS conflict
    resolution (Section 9 of [RFC6762]) to ensure unique names, and then
-   browse for the relevant service (Section 4 of [RFC6763]).
+   browse for the relevant service (Section 4 of [RFC6763]).  However,
+   Web browsers don't currently perform this browsing, so picking a name
+   that guarantees uniqueness is RECOMMENDED.
 
    Following these recommendations solves the goals described in
    Section 5 without requiring any changes in Web browser software.
 
-7.  Security Considerations
+7.  Deployment Considerations
+
+   DNS Service Discovery relies on either link-local multicast (in the
+   case of mDNS) or on service registration infrastructure (such as
+   [DNSSD-SRP]).  If a network blocks link-local multicast and does not
+   offer service registration infrastructure as an alternative, then DNS
+   service discovery cannot function.  Because of this, the
+   recommendations in this document won't work on such networks.
+
+8.  Security Considerations
 
    Many aspects of the Web security model rely on using a name as a root
    of security.  This has the following consequences:
@@ -345,20 +368,22 @@ Table of Contents
    *  name unicity matters, as conflicts can lead the two devices
       sharing a name to incorrectly share a security boundary.
 
-   *  HTTPS/WebPKI security relies on globally-registered names, and is
-      therefore not available for link-local connectivity.  Such link-
-      local communication is therefore inherently not authenticated.
+   *  HTTPS/WebPKI security currently relies on globally-registered
+      names, and is therefore not available for link-local connectivity.
+      Such link-local communication is therefore inherently not
+      authenticated.  Future work might define mechanisms to trust local
+      anchors, which would enable such security.
 
    Fundamentally, mDNS has similar security properties as the underlying
    link-local address it resolves to.
 
-8.  IANA Considerations
+9.  IANA Considerations
 
    This document has no IANA actions.
 
-9.  References
+10.  References
 
-9.1.  Normative References
+10.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -377,10 +402,23 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-9.2.  Informative References
+10.2.  Informative References
 
    [CORS]     "CORS protocol", WHATWG Living Standard,
               <https://fetch.spec.whatwg.org/#http-cors-protocol>.
+
+   [CUPS]     Sweet, M., "An IPvFuture Syntax for IPv6 Link-Local
+              Addresses", Work in Progress, Internet-Draft, draft-sweet-
+              uri-zoneid-01, 22 November 2013,
+              <https://datatracker.ietf.org/doc/html/draft-sweet-uri-
+              zoneid-01>.
+
+   [DNSSD-SRP]
+              Lemon, T. and S. Cheshire, "Service Registration Protocol
+              for DNS-Based Service Discovery", Work in Progress,
+              Internet-Draft, draft-ietf-dnssd-srp-24, 29 January 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-dnssd-
+              srp-24>.
 
    [DRAFT-6874BIS]
               Carpenter, B. E., Cheshire, S., and R. M. Hinden,
@@ -461,6 +499,13 @@ Table of Contents
               DOI 10.17487/RFC9111, June 2022,
               <https://www.rfc-editor.org/rfc/rfc9111>.
 
+   [URI-ZONE-EARLY]
+              Fenner, B. and M. J. Dürst, "Formats for IPv6 Scope Zone
+              Identifiers in Literal Address Formats", Work in Progress,
+              Internet-Draft, draft-fenner-literal-zone-02, 24 October
+              2005, <https://datatracker.ietf.org/doc/html/draft-fenner-
+              literal-zone-02>.
+
    [URL-HISTORY]
               Ruby, S. and L. Masinter, "URL Problem Statement and
               Directions", Work in Progress, Internet-Draft, draft-ruby-
@@ -485,7 +530,7 @@ Acknowledgments
    research documented in [URL-HISTORY].  The author would like to thank
    Brian E. Carpenter, Stuart Cheshire, and Bob Hinden for their prior
    work in this space.  Additionally, the author thanks Eric Rescorla
-   for their review and comments.
+   and Michael Sweet for their review and comments.
 
 Author's Address
 
