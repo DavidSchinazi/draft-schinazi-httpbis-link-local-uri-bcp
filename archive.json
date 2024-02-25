@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-22T01:16:15.347844+00:00",
+  "timestamp": "2024-02-25T01:20:57.641776+00:00",
   "repo": "DavidSchinazi/draft-schinazi-httpbis-link-local-uri-bcp",
   "labels": [
     {
@@ -50,5 +50,48 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOLU7hKs5nmGvE",
+      "title": "Minor grammar tweak in Section 4",
+      "url": "https://github.com/DavidSchinazi/draft-schinazi-httpbis-link-local-uri-bcp/pull/1",
+      "state": "MERGED",
+      "author": "RyanTheOptimist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The subject of the first sentence is \"browsers\", so \"these\" would suggest that the second sentence is talking about browsers. But, it's actually talking about the command line tools. I think \"those\" is more natural.",
+      "createdAt": "2024-02-22T03:18:22Z",
+      "updatedAt": "2024-02-22T07:50:53Z",
+      "baseRepository": "DavidSchinazi/draft-schinazi-httpbis-link-local-uri-bcp",
+      "baseRefName": "main",
+      "baseRefOid": "472f1a79d2cee0162358153e84d2e847e12ae81d",
+      "headRepository": "RyanTheOptimist/draft-schinazi-httpbis-link-local-uri-bcp",
+      "headRefName": "Those",
+      "headRefOid": "61eb94576aafef41a8eeb93a42f6b64bb9335d27",
+      "closedAt": "2024-02-22T07:50:53Z",
+      "mergedAt": "2024-02-22T07:50:53Z",
+      "mergedBy": "DavidSchinazi",
+      "mergeCommit": {
+        "oid": "7092faeaca58fbd5a7ffc1e9d3754b4eff671b99"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLU7hKs5w9aWV",
+          "commit": {
+            "abbreviatedOid": "61eb945"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "Agreed, thanks Ryan!",
+          "createdAt": "2024-02-22T07:50:48Z",
+          "updatedAt": "2024-02-22T07:50:48Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
 }
