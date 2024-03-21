@@ -200,7 +200,7 @@ specification (see {{URL-ZONE-TRACKER2}}).
 
 ## Further Attempts
 
-After it was clear that most browser were not going to implement {{RFC6874}},
+After it was clear that most browsers were not going to implement {{RFC6874}},
 another attempt was made to modify the URI RFC:
 {{?DRAFT-6874BIS=I-D.ietf-6man-rfc6874bis}}. While this attempted to address
 some of the difficulties in implementing {{RFC6874}}, it did not address the
