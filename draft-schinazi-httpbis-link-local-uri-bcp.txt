@@ -4,9 +4,9 @@
 
 HTTP                                                         D. Schinazi
 Internet-Draft                                                Google LLC
-Obsoletes: 6874 (if approved)                           22 February 2024
+Obsoletes: 6874 (if approved)                              21 March 2024
 Intended status: Best Current Practice                                  
-Expires: 25 August 2024
+Expires: 22 September 2024
 
 
    Best Practices for Link-Local Connectivity in URI-Based Protocols
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 August 2024.
+   This Internet-Draft will expire on 22 September 2024.
 
 Copyright Notice
 
@@ -236,7 +236,7 @@ Table of Contents
 
 3.3.  Further Attempts
 
-   After it was clear that most browser were not going to implement
+   After it was clear that most browsers were not going to implement
    [RFC6874], another attempt was made to modify the URI RFC:
    [DRAFT-6874BIS].  While this attempted to address some of the
    difficulties in implementing [RFC6874], it did not address the fact
@@ -427,9 +427,9 @@ Table of Contents
    [DNSSD-SRP]
               Lemon, T. and S. Cheshire, "Service Registration Protocol
               for DNS-Based Service Discovery", Work in Progress,
-              Internet-Draft, draft-ietf-dnssd-srp-24, 29 January 2024,
+              Internet-Draft, draft-ietf-dnssd-srp-25, 4 March 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-dnssd-
-              srp-24>.
+              srp-25>.
 
    [DRAFT-6874BIS]
               Carpenter, B. E., Cheshire, S., and R. M. Hinden,
