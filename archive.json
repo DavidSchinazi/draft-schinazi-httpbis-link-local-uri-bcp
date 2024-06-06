@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-04T01:25:22.176101+00:00",
+  "timestamp": "2024-06-06T01:24:47.745122+00:00",
   "repo": "DavidSchinazi/draft-schinazi-httpbis-link-local-uri-bcp",
   "labels": [
     {
@@ -49,7 +49,32 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOLU7hKs6LPxAW",
+      "title": "Alternative towards mDNS",
+      "url": "https://github.com/DavidSchinazi/draft-schinazi-httpbis-link-local-uri-bcp/issues/2",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Hi,\r\n\r\nin cases where mDNS is not available, e.g. constrained router bootstrap, an alternative input method would be useful.\r\nI see no reason why this could not be done within the hosts' resolver stack.\r\nBy using a pseudo-domain, e.g. `ll-ip6.arpa` and composing the name by concatenating address in rfc5952 format with dashes prepended by the local interface name.\r\nSo `fe80::23:42` on `en5` becomes `en5.fe80--23-42.ll-ip6.arpa`.\r\n\r\nInterest for a PR proposing that?",
+      "createdAt": "2024-06-05T15:03:37Z",
+      "updatedAt": "2024-06-05T18:28:01Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "OWNER",
+          "body": "Hi Philipp, can you elaborate on your use case? As far as I know, any constrained device that implements HTTP has sufficient resources to also implement responding to mDNS resolution requests.",
+          "createdAt": "2024-06-05T18:28:00Z",
+          "updatedAt": "2024-06-05T18:28:00Z"
+        }
+      ]
+    }
+  ],
   "pulls": [
     {
       "number": 1,
