@@ -1,0 +1,178 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-07-18T01:34:18.478542+00:00",
+  "repo": "DavidSchinazi/draft-schinazi-httpbis-link-local-uri-bcp",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOLU7hKs6LPxAW",
+      "title": "Alternative towards mDNS",
+      "url": "https://github.com/DavidSchinazi/draft-schinazi-httpbis-link-local-uri-bcp/issues/2",
+      "state": "OPEN",
+      "author": "philsbln",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Hi,\r\n\r\nin cases where mDNS is not available, e.g. constrained router bootstrap, an alternative input method would be useful.\r\nI see no reason why this could not be done within the hosts' resolver stack.\r\nBy using a pseudo-domain, e.g. `ll-ip6.arpa` and composing the name by concatenating address in rfc5952 format with dashes prepended by the local interface name.\r\nSo `fe80::23:42` on `en5` becomes `en5.fe80--23-42.ll-ip6.arpa`.\r\n\r\nThe advantage of this representation is that it does not need any change to the client application (assuming it uses the OS's resolver and the scope id in sockaddr_in6 is not bleached) and plays well with the same-origin policy. \r\n\r\nFrom a web app/server perspective, it is the same as answering to all names of a wildcard DNS record.\r\n\r\nInterest for a PR proposing that?",
+      "createdAt": "2024-06-05T15:03:37Z",
+      "updatedAt": "2024-06-07T22:00:47Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "OWNER",
+          "body": "Hi Philipp, can you elaborate on your use case? As far as I know, any constrained device that implements HTTP has sufficient resources to also implement responding to mDNS resolution requests.",
+          "createdAt": "2024-06-05T18:28:00Z",
+          "updatedAt": "2024-06-05T18:28:00Z"
+        },
+        {
+          "author": "philsbln",
+          "authorAssociation": "NONE",
+          "body": "I have seen several corporate and event networks where mDNS was explicitly filtered and debugging of IoT equipment via a built-in web interface was necessary. ",
+          "createdAt": "2024-06-06T05:26:50Z",
+          "updatedAt": "2024-06-06T05:26:50Z"
+        },
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "OWNER",
+          "body": "Generally this kind of managed network uses DHCPv6 to centrally assign a routable address to each device. Additionally, these managed networks are generally large - the whole reason to manage the network is because it is large enough to span multiple broadcast domains - so link-local addresses probably won't work between your browser and the IoT device. What am I missing?",
+          "createdAt": "2024-06-06T15:20:24Z",
+          "updatedAt": "2024-06-06T15:20:24Z"
+        },
+        {
+          "author": "philsbln",
+          "authorAssociation": "NONE",
+          "body": "You are missing the contractor flied engineer of the AV company fixing the conference system or smart doorplate, who has been given L2-access to the network, but has no access to the whole management architecture and has no leverage. \r\nLink-Local addressing will be this last resort, e.g., to enable DHCPv6.",
+          "createdAt": "2024-06-06T15:47:40Z",
+          "updatedAt": "2024-06-06T15:47:40Z"
+        },
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "OWNER",
+          "body": "I'm assuming that by \"to enable DHCPv6\" you mean \"to enable the DHCPv6 client on the conference system\". In this scenario, how does the contractor know what link-local address to use to connect to the conference system?",
+          "createdAt": "2024-06-06T16:03:34Z",
+          "updatedAt": "2024-06-06T16:03:34Z"
+        },
+        {
+          "author": "philsbln",
+          "authorAssociation": "NONE",
+          "body": "Most probably \"printed on the backside of the system\" or \"displayed on the system itself\"",
+          "createdAt": "2024-06-06T17:47:33Z",
+          "updatedAt": "2024-06-06T17:47:33Z"
+        },
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "OWNER",
+          "body": "Do you have examples of such a device? I was under the impression that we'd moved away from EUI-64 in favor or randomly-generated link-local addresses",
+          "createdAt": "2024-06-06T18:13:37Z",
+          "updatedAt": "2024-06-06T18:13:37Z"
+        },
+        {
+          "author": "philsbln",
+          "authorAssociation": "NONE",
+          "body": "As this does notation does not exist yet, there are none. \r\nToday, these kind of embedded devices are often still IPv4 only and use hardcoded fallback addresses if DHCPv4 fails. If they are modern, they may have implemented EUI-64 LL and do SLAAC. \r\nI don't argue that this is better than mDNS, just that there is a small use case for accessing web-interfaces of devices with link-local addresses from a browser \u2013 especially when people filter or turn off mDNS. \r\n\r\nI have indeed recovered some routers and switches by creative use of link-local addresses (in all cases using EUI-64 addresses) \u2013 luckily I did not need a web browser but could use SSH. ",
+          "createdAt": "2024-06-07T05:21:10Z",
+          "updatedAt": "2024-06-07T05:21:10Z"
+        },
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "OWNER",
+          "body": "Thanks for the details. I think you're right that this use case exists, even if it's incredibly rare. Given the rarity, I don't think it makes sense to put machinery in DNS resolver stacks to handle it. It would be aspirational in the same way that RFC 6874 was, and most likely won't get implemented.",
+          "createdAt": "2024-06-07T22:00:46Z",
+          "updatedAt": "2024-06-07T22:00:46Z"
+        }
+      ]
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOLU7hKs5nmGvE",
+      "title": "Minor grammar tweak in Section 4",
+      "url": "https://github.com/DavidSchinazi/draft-schinazi-httpbis-link-local-uri-bcp/pull/1",
+      "state": "MERGED",
+      "author": "RyanTheOptimist",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The subject of the first sentence is \"browsers\", so \"these\" would suggest that the second sentence is talking about browsers. But, it's actually talking about the command line tools. I think \"those\" is more natural.",
+      "createdAt": "2024-02-22T03:18:22Z",
+      "updatedAt": "2024-02-22T07:50:53Z",
+      "baseRepository": "DavidSchinazi/draft-schinazi-httpbis-link-local-uri-bcp",
+      "baseRefName": "main",
+      "baseRefOid": "472f1a79d2cee0162358153e84d2e847e12ae81d",
+      "headRepository": "RyanTheOptimist/draft-schinazi-httpbis-link-local-uri-bcp",
+      "headRefName": "Those",
+      "headRefOid": "61eb94576aafef41a8eeb93a42f6b64bb9335d27",
+      "closedAt": "2024-02-22T07:50:53Z",
+      "mergedAt": "2024-02-22T07:50:53Z",
+      "mergedBy": "DavidSchinazi",
+      "mergeCommit": {
+        "oid": "7092faeaca58fbd5a7ffc1e9d3754b4eff671b99"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLU7hKs5w9aWV",
+          "commit": {
+            "abbreviatedOid": "61eb945"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "Agreed, thanks Ryan!",
+          "createdAt": "2024-02-22T07:50:48Z",
+          "updatedAt": "2024-02-22T07:50:48Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
