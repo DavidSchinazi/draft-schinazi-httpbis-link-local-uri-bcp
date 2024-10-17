@@ -1,6 +1,6 @@
-# Best Practices for Link Local Connectivity in URI-based Protocols
+# Best Practices for Link-Local Connectivity in URI-Based Protocols
 
-This is the working area for the individual Internet-Draft, "Best Practices for Link Local Connectivity in URI-based Protocols".
+This is the working area for the individual Internet-Draft, "Best Practices for Link-Local Connectivity in URI-Based Protocols".
 
 * [Editor's Copy](https://DavidSchinazi.github.io/draft-schinazi-httpbis-link-local-uri-bcp/#go.draft-schinazi-httpbis-link-local-uri-bcp.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-schinazi-httpbis-link-local-uri-bcp)
